@@ -17,13 +17,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm test",
-      "pre-push": "npm test",
-      "...": "..."
-    }
-  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -46,9 +39,17 @@
     "eslint": "^8.9.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-native": "^4.0.0",
-    "husky": "^7.0.4"
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.4",
+    "prettier": "^2.3.2"
   },
-  "env": {
-    "react-native/react-native": true
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
   }
 }
