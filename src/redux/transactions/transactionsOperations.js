@@ -41,7 +41,7 @@ export const fetchSummary = createAsyncThunk(
   'transactions/fetchSummary',
   async (_, thunkAPI) => {
     try {
-      const { data } = await axios.get(`/transactions/costs/total`);
+      const { data } = await axios.get(`/transactions/summary`);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

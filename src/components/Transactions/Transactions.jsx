@@ -1,3 +1,4 @@
+import { Summary } from 'components/Summary';
 import { useState } from 'react';
 
 import { TransactionDate } from './TransactionDate';
@@ -19,6 +20,7 @@ export const Transactions = () => {
       <TransactionDate setYear={setYear} setMonth={setMonth} setDay={setDay} />
       <TransactionForm date={date} type={type} />
       <TransactionTable date={date} type={type} />
+      <Summary type={type} />
     </>
   );
 };
