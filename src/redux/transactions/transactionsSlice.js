@@ -1,6 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import {
   addTransaction,
+  changeDate,
+  changeType,
   fetchSummary,
   fetchUserTransactions,
   removeTransaction,
@@ -9,6 +12,8 @@ import {
 const initialState = {
   transactions: [],
   summary: [],
+  type: 'costs',
+  date: { day: null, month: null, year: null },
   isLoading: false,
 };
 
@@ -51,12 +56,18 @@ const transactionsSlice = createSlice({
     },
     [removeTransaction.fulfilled]: (state, action) => {
       state.transactions = state.transactions?.filter(
-        tr => tr?._id !== action.payload
+        tr => tr?._id !== action.payload.data._id
       );
       state.isLoading = false;
     },
     [removeTransaction.rejected]: state => {
       state.isLoading = false;
+    },
+    [changeDate]: (state, action) => {
+      state.date = action.payload;
+    },
+    [changeType]: (state, action) => {
+      state.type = action.payload;
     },
   },
 });

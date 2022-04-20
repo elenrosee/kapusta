@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const fetchUserTransactions = createAsyncThunk(
   'transactions/fetchUserTransactions',
@@ -48,3 +48,7 @@ export const fetchSummary = createAsyncThunk(
     }
   }
 );
+
+export const changeDate = createAction('transactions/changeDate');
+
+export const changeType = createAction('transactions/changeType');

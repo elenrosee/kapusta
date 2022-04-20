@@ -1,3 +1,7 @@
+export { TransactionForm } from './TransactionForm';
+export { TransactionTypeButtons } from './TransactionTypeButtons';
+export { Calendar } from './Calendar';
+export { Logo } from './Logo';
 export { Summary } from './Summary';
 export { Transactions } from './Transactions';
 export { Balance } from './UserBalance';

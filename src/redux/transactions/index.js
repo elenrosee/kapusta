@@ -2,6 +2,8 @@ export {
   getIsLoading,
   getTransactions,
   getSummary,
+  getDate,
+  getType,
 } from './transactionsSelectors';
 
 export {
@@ -9,4 +11,6 @@ export {
   addTransaction,
   fetchSummary,
   removeTransaction,
+  changeDate,
+  changeType,
 } from './transactionsOperations';

@@ -1,14 +1,27 @@
 import { NavLink } from 'react-router-dom';
 import report from 'images/report.svg';
 import styled from 'styled-components';
+import { Breakpoints, MQ } from 'common';
 
 export const ToRaportsNavLink = styled(NavLink)`
-  font-size: 12px;
-  color: var(--text-color-2);
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  margin-bottom: 40px;
+  margin-top: 30px;
+
+  ${MQ(Breakpoints.md)} {
+    margin: 0;
+  }
 `;
 
-export const Image = styled.svg`
-  background-image: url(${report});
+export const Image = styled.span`
   display: inline-block;
-  margin-left: 15px;
+  margin-left: 20px;
+  width: 14px;
+  height: 14px;
+  background-color: inherit;
+  background-image: url(${report});
+  background-repeat: no-repeat;
+  background-size: contain;
 `;

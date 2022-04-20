@@ -1,25 +1,24 @@
-/* eslint-disable react/jsx-key */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTable } from 'react-table';
 import {
+  fetchSummary,
   fetchUserTransactions,
+  getDate,
   getTransactions,
+  getType,
   removeTransaction,
 } from 'redux/transactions';
-import { fetchUserBalance, getUserBalance } from 'redux/user';
+import { fetchUserBalance } from 'redux/user';
 
-export const TransactionTable = ({ date, type }) => {
+export const TransactionTable = () => {
   const dispatch = useDispatch();
-  const userBalance = useSelector(getUserBalance);
+  const date = useSelector(getDate);
+  const type = useSelector(getType);
 
   useEffect(() => {
-    if (date.day.length > 0) {
-      dispatch(fetchUserTransactions(date));
-    }
-  }, [dispatch, date, userBalance]);
+    dispatch(fetchUserTransactions(date));
+  }, [dispatch, date]);
 
   const transactionsList = useSelector(getTransactions).filter(
     tr => tr.type === type
@@ -49,15 +48,38 @@ export const TransactionTable = ({ date, type }) => {
     []
   );
 
-  const data = transactionsList.map(
-    ({ day, month, year, description, category, sum, _id }) => ({
-      date: `${day}.${month}.${year}`,
-      description,
-      category,
-      sum,
-      id: _id,
-    })
-  );
+  const data = [];
+
+  if (transactionsList.length < 10) {
+    for (let i = 0; i < 10; i += 1) {
+      transactionsList[i]
+        ? data.push({
+            date: `${transactionsList[i].day}.${transactionsList[i].month}.${transactionsList[i].year}`,
+            description: transactionsList[i].description,
+            category: transactionsList[i].category,
+            sum: transactionsList[i].sum,
+            id: transactionsList[i]._id,
+          })
+        : data.push({
+            date: '',
+            description: '',
+            category: '',
+            sum: '',
+            id: '',
+          });
+    }
+  } else {
+    transactionsList.forEach(
+      ({ day, month, year, description, category, sum, _id }) =>
+        data.push({
+          date: `${day}.${month}.${year}`,
+          description,
+          category,
+          sum,
+          id: _id,
+        })
+    );
+  }
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
@@ -66,7 +88,10 @@ export const TransactionTable = ({ date, type }) => {
     <table {...getTableProps()} style={{ border: 'solid 1px blue' }}>
       <thead>
         {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
+          <tr
+            {...headerGroup.getHeaderGroupProps()}
+            key={headerGroups.indexOf(headerGroup)}
+          >
             {headerGroup.headers.map(column => (
               <th
                 {...column.getHeaderProps()}
@@ -75,6 +100,7 @@ export const TransactionTable = ({ date, type }) => {
                   color: 'black',
                   fontWeight: 'bold',
                 }}
+                key={headerGroup.headers.indexOf(column)}
               >
                 {column.render('Header')}
               </th>
@@ -87,7 +113,7 @@ export const TransactionTable = ({ date, type }) => {
         {rows.map(row => {
           prepareRow(row);
           return (
-            <tr {...row.getRowProps()}>
+            <tr {...row.getRowProps()} key={rows.indexOf(row)}>
               {row.cells.map(cell => {
                 return (
                   <td
@@ -97,6 +123,7 @@ export const TransactionTable = ({ date, type }) => {
                       border: 'solid 1px gray',
                       background: 'papayawhip',
                     }}
+                    key={row.cells.indexOf(cell)}
                   >
                     {cell.render('Cell')}
                   </td>
@@ -107,6 +134,7 @@ export const TransactionTable = ({ date, type }) => {
                   onClick={async () => {
                     await dispatch(removeTransaction(row.original.id));
                     dispatch(fetchUserBalance());
+                    dispatch(fetchSummary());
                   }}
                   type="submit"
                 >

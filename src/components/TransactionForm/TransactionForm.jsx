@@ -1,14 +1,24 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addTransaction } from 'redux/transactions';
-import { fetchUserBalance } from 'redux/user';
 
-export const TransactionForm = ({ date , type}) => {
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  addTransaction,
+  fetchSummary,
+  getDate,
+  getType,
+} from 'redux/transactions';
+import { fetchUserBalance } from 'redux/user';
+// import { fetchUserBalance } from 'redux/user';
+
+export const TransactionForm = ({ openTrForm }) => {
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
   const [sum, setSum] = useState('');
   const dispatch = useDispatch();
+
+  const date = useSelector(getDate);
+  const type = useSelector(getType);
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -44,6 +54,9 @@ export const TransactionForm = ({ date , type}) => {
   return (
     <>
       <p>Transaction Form</p>
+      <button onClick={() => openTrForm(false)} type="submit">
+        Back arrow
+      </button>
       <div>
         <input
           type="text"
@@ -77,6 +90,7 @@ export const TransactionForm = ({ date , type}) => {
             if (description.length && category.length && sum.length > 0) {
               await dispatch(addTransaction(newTransaction));
               dispatch(fetchUserBalance());
+              dispatch(fetchSummary());
               setCategory('');
               setDescription('');
               setSum('');
