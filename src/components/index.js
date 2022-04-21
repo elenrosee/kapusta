@@ -1,5 +1,7 @@
+export { TransactionTable } from './TransactionTable';
 export { TransactionForm } from './TransactionForm';
-export { TransactionTypeButtons } from './TransactionTypeButtons';
+export { TypeButtons } from './TypeButtons';
+export { MobileTypeButtons } from './MobileTypeButtons';
 export { Calendar } from './Calendar';
 export { Logo } from './Logo';
 export { Summary } from './Summary';

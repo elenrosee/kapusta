@@ -15,12 +15,10 @@ import { useMediaQuery } from 'react-responsive';
 import { Breakpoints } from 'common';
 
 const AuthView = lazy(() => import('./views/AuthView'));
-const TransactionsView = lazy(() => import('./views/TransactionsView'));
+const HomeView = lazy(() => import('./views/HomeView'));
 const ReportView = lazy(() => import('./views/ReportView'));
 const MobileReportView = lazy(() => import('./views/MobileReportView'));
-const MobileTrinsactionsView = lazy(() =>
-  import('./views/MobileTrinsactionsView')
-);
+const MobileHomeView = lazy(() => import('./views/MobileHomeView'));
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -63,9 +61,9 @@ export const App = () => {
                 element={
                   isLoggedIn ? (
                     isMobile ? (
-                      <MobileTrinsactionsView />
+                      <MobileHomeView />
                     ) : (
-                      <TransactionsView />
+                      <HomeView />
                     )
                   ) : (
                     <Navigate to="/" />

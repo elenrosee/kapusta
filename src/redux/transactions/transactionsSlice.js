@@ -12,7 +12,7 @@ import {
 const initialState = {
   transactions: [],
   summary: [],
-  type: 'costs',
+  type: 'all',
   date: { day: null, month: null, year: null },
   isLoading: false,
 };

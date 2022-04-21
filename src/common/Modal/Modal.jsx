@@ -39,7 +39,6 @@ export const Modal = ({ onClose, onAgree, title }) => {
         <Title>{title}</Title>
         <ButtonBox>
           <Button
-            className="btn_hover"
             type="button"
             onClick={async () => (await onAgree(), onClose())}
           >

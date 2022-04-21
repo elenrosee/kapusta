@@ -20,9 +20,10 @@ export const TransactionTable = () => {
     dispatch(fetchUserTransactions(date));
   }, [dispatch, date]);
 
-  const transactionsList = useSelector(getTransactions).filter(
-    tr => tr.type === type
-  );
+  const transactions = useSelector(getTransactions);
+
+  const transactionsList =
+    type !== 'all' ? transactions.filter(tr => tr.type === type) : transactions;
 
   // react table build
 
@@ -117,6 +118,7 @@ export const TransactionTable = () => {
               {row.cells.map(cell => {
                 return (
                   <td
+                    className={cell.column.id}
                     {...cell.getCellProps()}
                     style={{
                       padding: '10px',

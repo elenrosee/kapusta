@@ -1,17 +1,15 @@
-import {} from '../TransactionForm/TransactionForm';
-import { TransactionTable } from './TransactionsTable';
-
 import {
   Calendar,
   Summary,
-  TransactionTypeButtons,
+  TypeButtons,
   TransactionForm,
+  TransactionTable,
 } from 'components';
 
 export const Transactions = () => {
   return (
     <>
-      <TransactionTypeButtons />
+      <TypeButtons />
       <Calendar />
       <TransactionForm />
       <TransactionTable />

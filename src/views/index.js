@@ -1,6 +1,6 @@
 export { MobileReportView } from './MobileReportView';
-export { MobileTransactionsView } from './MobileTrinsactionsView';
+export { MobileTransactionsView } from './MobileHomeView';
 
 export { ReportView } from './ReportView';
-export { TransactionsView } from './TransactionsView';
+export { TransactionsView } from './HomeView';
 export { AuthView } from './AuthView';

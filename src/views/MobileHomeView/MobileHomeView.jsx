@@ -5,12 +5,12 @@ import {
   Balance,
   Calendar,
   GoToReportsButton,
+  MobileTypeButtons,
   TransactionForm,
-  TransactionTypeButtons,
 } from 'components';
-import { TransactionTable } from 'components/Transactions/TransactionsTable';
+import { TransactionTable } from 'components/TransactionTable/TransactionsTable';
 
-export default function MobileTransactionsView() {
+export default function MobileHomeView() {
   const [trForm, openTrForm] = useState(false);
 
   return (
@@ -23,11 +23,11 @@ export default function MobileTransactionsView() {
             <GoToReportsButton />
             <Balance />
             <Calendar />
-            <TransactionTable />
           </>
         )}
+        <TransactionTable />
       </Container>
-      <TransactionTypeButtons openTrForm={openTrForm} />
+      <MobileTypeButtons openTrForm={openTrForm} />
     </>
   );
 }

@@ -4,12 +4,12 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   addTransaction,
+  changeType,
   fetchSummary,
   getDate,
   getType,
 } from 'redux/transactions';
 import { fetchUserBalance } from 'redux/user';
-// import { fetchUserBalance } from 'redux/user';
 
 export const TransactionForm = ({ openTrForm }) => {
   const [description, setDescription] = useState('');
@@ -53,10 +53,16 @@ export const TransactionForm = ({ openTrForm }) => {
 
   return (
     <>
-      <p>Transaction Form</p>
-      <button onClick={() => openTrForm(false)} type="submit">
-        Back arrow
-      </button>
+      {openTrForm && (
+        <button
+          onClick={() => {
+            dispatch(changeType('all')), openTrForm(false);
+          }}
+          type="submit"
+        >
+          Back arrow
+        </button>
+      )}
       <div>
         <input
           type="text"
