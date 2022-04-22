@@ -10,6 +10,7 @@ export const Btn = styled(Button)`
   border: none;
   border-radius: 0;
   width: calc(calc(100vw / 2) - 1px);
+  background-color: var(--bg-color);
 
   &.active {
     color: white;

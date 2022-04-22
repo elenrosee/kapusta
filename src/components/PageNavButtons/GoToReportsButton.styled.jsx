@@ -4,11 +4,8 @@ import styled from 'styled-components';
 import { Breakpoints, MQ } from 'common';
 
 export const ToRaportsNavLink = styled(NavLink)`
-  display: flex;
-  justify-content: center;
-  align-items: baseline;
   margin-bottom: 40px;
-  margin-top: 30px;
+  margin-top: 15px;
 
   ${MQ(Breakpoints.md)} {
     margin: 0;

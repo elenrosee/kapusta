@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 
+import { Breakpoints } from 'common';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useMediaQuery } from 'react-responsive';
 import {
   addTransaction,
   changeType,
@@ -10,12 +12,21 @@ import {
   getType,
 } from 'redux/transactions';
 import { fetchUserBalance } from 'redux/user';
+import {
+  ArrowBtn,
+  Container,
+  Form,
+  Input,
+  Btn,
+} from './TransactionForm.styled';
 
 export const TransactionForm = ({ openTrForm }) => {
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
   const [sum, setSum] = useState('');
   const dispatch = useDispatch();
+
+  const isMobile = useMediaQuery({ maxWidth: Breakpoints.md - 1 });
 
   const date = useSelector(getDate);
   const type = useSelector(getType);
@@ -51,20 +62,24 @@ export const TransactionForm = ({ openTrForm }) => {
     sum: Number(sum),
   };
 
+  const resetForm = () => {
+    setDescription('');
+    setCategory('');
+    setSum('');
+  };
+
   return (
-    <>
-      {openTrForm && (
-        <button
+    <Container>
+      {isMobile && (
+        <ArrowBtn
           onClick={() => {
             dispatch(changeType('all')), openTrForm(false);
           }}
           type="submit"
-        >
-          Back arrow
-        </button>
+        />
       )}
-      <div>
-        <input
+      <Form autoComplete="off">
+        <Input
           type="text"
           name="description"
           value={description}
@@ -73,7 +88,7 @@ export const TransactionForm = ({ openTrForm }) => {
           maxLength="40"
           autoComplete="off"
         />
-        <input
+        <Input
           type="text"
           name="category"
           value={category}
@@ -82,31 +97,43 @@ export const TransactionForm = ({ openTrForm }) => {
           maxLength="40"
           autoComplete="off"
         />
-        <input
+        <Input
           type="number"
           name="sum"
           value={sum}
           onChange={handleInputChange}
-          placeholder={0.0}
+          placeholder={'0,00'}
           maxLength="20"
           autoComplete="off"
         />
-        <button
-          onClick={async () => {
-            if (description.length && category.length && sum.length > 0) {
-              await dispatch(addTransaction(newTransaction));
-              dispatch(fetchUserBalance());
-              dispatch(fetchSummary());
-              setCategory('');
-              setDescription('');
-              setSum('');
-            }
-          }}
-          type="submit"
-        >
-          <p>Подтвердить</p>
-        </button>
-      </div>
-    </>
+        <div>
+          <Btn
+            onClick={async e => {
+              e.preventDefault();
+              if (description.length && category.length && sum.length > 0) {
+                await dispatch(addTransaction(newTransaction));
+                dispatch(fetchUserBalance());
+                dispatch(fetchSummary());
+                resetForm();
+              }
+            }}
+            type="submit"
+          >
+            ввод
+          </Btn>
+          {isMobile && (
+            <Btn
+              onClick={e => {
+                e.preventDefault();
+                resetForm();
+              }}
+              type="submit"
+            >
+              Очистить
+            </Btn>
+          )}
+        </div>
+      </Form>
+    </Container>
   );
 };

@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { Container } from 'common';
 import {
   Balance,
   Calendar,
@@ -9,23 +8,34 @@ import {
   TransactionForm,
 } from 'components';
 import { TransactionTable } from 'components/TransactionTable/TransactionsTable';
+import { useDispatch } from 'react-redux';
+import { changeType } from 'redux/transactions';
+import { MobilleHomeContainer } from './MobileHomeView.styled';
+import { Container } from 'common';
 
 export default function MobileHomeView() {
   const [trForm, openTrForm] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(changeType('all'));
+  }, [dispatch]);
 
   return (
     <>
       <Container>
-        {trForm ? (
-          <TransactionForm openTrForm={openTrForm} />
-        ) : (
-          <>
-            <GoToReportsButton />
-            <Balance />
-            <Calendar />
-          </>
-        )}
-        <TransactionTable />
+        <MobilleHomeContainer>
+          {trForm ? (
+            <TransactionForm openTrForm={openTrForm} />
+          ) : (
+            <>
+              <GoToReportsButton />
+              <Balance />
+              <Calendar />
+            </>
+          )}
+          <TransactionTable />
+        </MobilleHomeContainer>
       </Container>
       <MobileTypeButtons openTrForm={openTrForm} />
     </>
