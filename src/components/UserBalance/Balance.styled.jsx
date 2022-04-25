@@ -1,4 +1,4 @@
-import { Button } from 'common';
+import { Breakpoints, Button, MQ } from 'common';
 import styled from 'styled-components';
 
 export const BalanceForm = styled.div`
@@ -7,13 +7,28 @@ export const BalanceForm = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  ${MQ(Breakpoints.md)} {
+    margin-bottom: 0;
+    flex-direction: row;
+  }
 `;
 
 export const BalanceText = styled.p`
   margin-bottom: 6px;
   color: var(--text-color-2);
-  font-weight: 400;
-  text-transform: uppercase;
+  font-weight: 500;
+
+  ${MQ(Breakpoints.md)} {
+    margin-bottom: 0;
+    margin-left: 40px;
+    margin-right: 20px;
+  }
+
+  ${MQ(Breakpoints.lg)} {
+    margin-bottom: 0;
+    margin-left: 340px;
+  }
 `;
 
 export const BalanceInput = styled.input`
@@ -30,6 +45,13 @@ export const BalanceInput = styled.input`
   text-align: center;
   outline: none;
 
+  ${MQ(Breakpoints.md)} {
+    border-right: 2px solid var(--bg-text-color);
+    border-radius: 16px;
+
+    margin-right: 15px;
+  }
+
   &::placeholder {
     color: var(--text-color);
   }
@@ -45,4 +67,8 @@ export const BalanceButton = styled(Button)`
   color: var(--text-color-2);
   border: 2px solid var(--bg-text-color);
   border-radius: 0px 22px 22px 0px;
+
+  ${MQ(Breakpoints.md)} {
+    border-radius: 16px;
+  }
 `;

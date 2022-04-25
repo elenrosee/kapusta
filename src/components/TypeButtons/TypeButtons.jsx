@@ -11,7 +11,7 @@ export const TypeButtons = () => {
 
   useEffect(() => {
     dispatch(changeType('costs'));
-  }, []);
+  }, [dispatch]);
 
   return (
     <Container>

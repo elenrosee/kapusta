@@ -3,11 +3,16 @@ import calendar from 'images/calendar.svg';
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { Breakpoints, MQ } from 'common';
 
 export const CalendarInput = styled(DatePicker)`
   display: block;
   margin-left: auto;
   margin-right: auto;
+
+  ${MQ(Breakpoints.md)} {
+    margin: 0;
+  }
 
   width: 104px;
   height: 20px;

@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import { Breakpoints } from 'common';
+import { Calendar } from 'components';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
@@ -16,8 +17,11 @@ import {
   ArrowBtn,
   FormContainer,
   Form,
-  Input,
   Btn,
+  InputDescription,
+  InputCategory,
+  InputSum,
+  BtnWraper,
 } from './TransactionForm.styled';
 
 export const TransactionForm = ({ openTrForm }) => {
@@ -78,8 +82,10 @@ export const TransactionForm = ({ openTrForm }) => {
           type="submit"
         />
       )}
+
       <Form autoComplete="off">
-        <Input
+        {!isMobile && <Calendar />}
+        <InputDescription
           type="text"
           name="description"
           value={description}
@@ -88,7 +94,7 @@ export const TransactionForm = ({ openTrForm }) => {
           maxLength="40"
           autoComplete="off"
         />
-        <Input
+        <InputCategory
           type="text"
           name="category"
           value={category}
@@ -97,7 +103,7 @@ export const TransactionForm = ({ openTrForm }) => {
           maxLength="40"
           autoComplete="off"
         />
-        <Input
+        <InputSum
           type="number"
           name="sum"
           value={sum}
@@ -106,34 +112,33 @@ export const TransactionForm = ({ openTrForm }) => {
           maxLength="20"
           autoComplete="off"
         />
-        <div>
-          <Btn
-            onClick={async e => {
-              e.preventDefault();
-              if (description.length && category.length && sum.length > 0) {
-                await dispatch(addTransaction(newTransaction));
-                dispatch(fetchUserBalance());
-                dispatch(fetchSummary());
-                resetForm();
-              }
-            }}
-            type="submit"
-          >
-            ввод
-          </Btn>
-          {isMobile && (
-            <Btn
-              onClick={e => {
-                e.preventDefault();
-                resetForm();
-              }}
-              type="submit"
-            >
-              Очистить
-            </Btn>
-          )}
-        </div>
       </Form>
+
+      <BtnWraper>
+        <Btn
+          onClick={async e => {
+            e.preventDefault();
+            if (description.length && category.length && sum.length > 0) {
+              await dispatch(addTransaction(newTransaction));
+              dispatch(fetchUserBalance());
+              dispatch(fetchSummary());
+              resetForm();
+            }
+          }}
+          type="submit"
+        >
+          ввод
+        </Btn>
+        <Btn
+          onClick={e => {
+            e.preventDefault();
+            resetForm();
+          }}
+          type="submit"
+        >
+          Очистить
+        </Btn>
+      </BtnWraper>
     </FormContainer>
   );
 };

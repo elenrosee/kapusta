@@ -38,6 +38,9 @@ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
 letter-spacing: 0.04em;
+/*  */
+background-color: var(--bg-color);
+/*  */
 font-size: 12px;
 line-height: 14px;
 color: var(--text-color-2);
