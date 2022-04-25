@@ -2,7 +2,7 @@
 import { Breakpoints, MQ } from 'common/Breakpoints';
 import styled from 'styled-components';
 
-const Wraper = styled.div`
+export const Container = styled.div`
   min-width: ${Breakpoints.sm}px;
   max-width: ${Breakpoints.lg}px;
   margin-left: auto;
@@ -20,7 +20,3 @@ const Wraper = styled.div`
     padding-right: 110px;
   }
 `;
-
-export const Container = ({ children }) => {
-  return <Wraper>{children}</Wraper>;
-};

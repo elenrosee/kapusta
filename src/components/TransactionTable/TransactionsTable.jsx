@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTable } from 'react-table';
+import { v4 as uuidv4 } from 'uuid';
 import {
   fetchSummary,
   fetchUserTransactions,
@@ -10,6 +11,17 @@ import {
   removeTransaction,
 } from 'redux/transactions';
 import { fetchUserBalance } from 'redux/user';
+import {
+  DeleteTransactionBtn,
+  TrTable,
+  TrTableBody,
+  TrTableHead,
+  TrTableHeadRow,
+  TrTableRow,
+} from './TransactionTable.styled';
+import { transactionsListData } from 'utils';
+import { useMediaQuery } from 'react-responsive';
+import { Breakpoints } from 'common';
 
 export const TransactionTable = () => {
   const dispatch = useDispatch();
@@ -20,11 +32,14 @@ export const TransactionTable = () => {
     dispatch(fetchUserTransactions(date));
   }, [dispatch, date]);
 
+  const isMobile = useMediaQuery({ maxWidth: Breakpoints.md - 1 });
+
   const transactions = useSelector(getTransactions);
 
   const transactionsList =
     type !== 'all' ? transactions.filter(tr => tr.type === type) : transactions;
 
+  console.log(transactionsList);
   // react table build
 
   const columns = useMemo(
@@ -49,104 +64,66 @@ export const TransactionTable = () => {
     []
   );
 
-  const data = [];
-
-  if (transactionsList.length < 10) {
-    for (let i = 0; i < 10; i += 1) {
-      transactionsList[i]
-        ? data.push({
-            date: `${transactionsList[i].day}.${transactionsList[i].month}.${transactionsList[i].year}`,
-            description: transactionsList[i].description,
-            category: transactionsList[i].category,
-            sum: transactionsList[i].sum,
-            id: transactionsList[i]._id,
-          })
-        : data.push({
-            date: '',
-            description: '',
-            category: '',
-            sum: '',
-            id: '',
-          });
-    }
-  } else {
-    transactionsList.forEach(
-      ({ day, month, year, description, category, sum, _id }) =>
-        data.push({
-          date: `${day}.${month}.${year}`,
-          description,
-          category,
-          sum,
-          id: _id,
-        })
-    );
-  }
-
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
+    useTable({
+      columns,
+      data: transactionsListData(transactionsList),
+    });
 
   return (
-    <table {...getTableProps()} style={{ border: 'solid 1px blue' }}>
-      <thead>
-        {headerGroups.map(headerGroup => (
-          <tr
-            {...headerGroup.getHeaderGroupProps()}
-            key={headerGroups.indexOf(headerGroup)}
-          >
-            {headerGroup.headers.map(column => (
-              <th
-                {...column.getHeaderProps()}
-                style={{
-                  background: 'aliceblue',
-                  color: 'black',
-                  fontWeight: 'bold',
-                }}
-                key={headerGroup.headers.indexOf(column)}
-              >
-                {column.render('Header')}
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
+    <TrTable {...getTableProps()}>
+      {!isMobile && (
+        <TrTableHead>
+          {headerGroups.map(headerGroup => (
+            <TrTableHeadRow
+              {...headerGroup.getHeaderGroupProps()}
+              key={uuidv4()}
+            >
+              {headerGroup.headers.map(column => (
+                <th {...column.getHeaderProps()} key={uuidv4()}>
+                  {column.render('Header')}
+                </th>
+              ))}
+            </TrTableHeadRow>
+          ))}
+        </TrTableHead>
+      )}
 
-      <tbody {...getTableBodyProps()}>
+      <TrTableBody {...getTableBodyProps()}>
         {rows.map(row => {
+          console.log(row);
           prepareRow(row);
           return (
-            <tr {...row.getRowProps()} key={rows.indexOf(row)}>
+            <TrTableRow
+              {...row.getRowProps()}
+              key={uuidv4()}
+              className={row.original.type}
+            >
               {row.cells.map(cell => {
                 return (
-                  <td
-                    className={cell.column.id}
-                    {...cell.getCellProps()}
-                    style={{
-                      padding: '10px',
-                      border: 'solid 1px gray',
-                      background: 'papayawhip',
-                    }}
-                    key={row.cells.indexOf(cell)}
-                  >
+                  <td {...cell.getCellProps()} key={uuidv4()}>
                     {cell.render('Cell')}
                   </td>
                 );
               })}
               <td>
-                <button
-                  onClick={async () => {
-                    await dispatch(removeTransaction(row.original.id));
-                    dispatch(fetchUserBalance());
-                    dispatch(fetchSummary());
-                  }}
-                  type="submit"
-                >
-                  <p>Delete</p>
-                </button>
+                {row.original.id && (
+                  <DeleteTransactionBtn
+                    onClick={async () => {
+                      await dispatch(removeTransaction(row.original.id));
+                      dispatch(fetchUserBalance());
+                      dispatch(fetchSummary());
+                    }}
+                    type="submit"
+                  >
+                    <p>Delete</p>
+                  </DeleteTransactionBtn>
+                )}
               </td>
-            </tr>
+            </TrTableRow>
           );
         })}
-      </tbody>
-    </table>
+      </TrTableBody>
+    </TrTable>
   );
 };

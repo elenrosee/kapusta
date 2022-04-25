@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import backArrow from 'images/backArrow.svg';
 import calculator from 'images/calculator.svg';
 
-export const Container = styled.div`
+export const FormContainer = styled.div`
+  padding-top: 15px;
   padding-bottom: 30px;
 `;
 

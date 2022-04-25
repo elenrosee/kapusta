@@ -24,7 +24,7 @@ export const Balance = () => {
   useEffect(() => {
     setValue(
       userBalance > 0
-        ? userBalance.toLocaleString('ru').concat(' UAH')
+        ? userBalance.toLocaleString().concat(' UAH')
         : '00.00 UAH'
     );
   }, [userBalance]);

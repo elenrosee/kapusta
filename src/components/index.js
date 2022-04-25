@@ -1,4 +1,4 @@
-export { TransactionTable } from './TransactionTable';
+export { TransactionTable, MobileTransactionsList } from './TransactionTable';
 export { TransactionForm } from './TransactionForm';
 export { TypeButtons } from './TypeButtons';
 export { MobileTypeButtons } from './MobileTypeButtons';

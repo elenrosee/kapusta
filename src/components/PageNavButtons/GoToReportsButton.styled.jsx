@@ -5,7 +5,6 @@ import { Breakpoints, MQ } from 'common';
 
 export const ToRaportsNavLink = styled(NavLink)`
   margin-bottom: 40px;
-  margin-top: 15px;
 
   ${MQ(Breakpoints.md)} {
     margin: 0;

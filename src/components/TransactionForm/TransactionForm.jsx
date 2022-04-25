@@ -14,7 +14,7 @@ import {
 import { fetchUserBalance } from 'redux/user';
 import {
   ArrowBtn,
-  Container,
+  FormContainer,
   Form,
   Input,
   Btn,
@@ -69,7 +69,7 @@ export const TransactionForm = ({ openTrForm }) => {
   };
 
   return (
-    <Container>
+    <FormContainer>
       {isMobile && (
         <ArrowBtn
           onClick={() => {
@@ -134,6 +134,6 @@ export const TransactionForm = ({ openTrForm }) => {
           )}
         </div>
       </Form>
-    </Container>
+    </FormContainer>
   );
 };
