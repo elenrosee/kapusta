@@ -5,8 +5,13 @@ import backArrow from 'images/backArrow.svg';
 import calculator from 'images/calculator.svg';
 
 export const FormContainer = styled.div`
-  padding-top: 15px;
-  padding-bottom: 30px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+
+  ${MQ(Breakpoints.lg)} {
+    display: flex;
+    justify-content: space-between;
+  }
 `;
 
 export const ArrowBtn = styled.button`
@@ -28,16 +33,10 @@ export const Form = styled.form`
 
   ${MQ(Breakpoints.md)} {
     flex-direction: row;
-
-    padding-right: 30px;
-    padding-left: 30px;
   }
 
   ${MQ(Breakpoints.lg)} {
     display: inline-flex;
-
-    padding-right: 27px;
-    padding-left: 20px;
   }
 `;
 

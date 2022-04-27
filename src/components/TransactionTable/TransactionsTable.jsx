@@ -1,7 +1,7 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useTable } from 'react-table';
 import { v4 as uuidv4 } from 'uuid';
+
 import {
   fetchSummary,
   fetchUserTransactions,
@@ -11,17 +11,15 @@ import {
   removeTransaction,
 } from 'redux/transactions';
 import { fetchUserBalance } from 'redux/user';
+import { DeleteTransactionBtn } from './MobileTransactionsList.styled';
 import {
-  DeleteTransactionBtn,
+  Sum,
   TrTable,
   TrTableBody,
   TrTableHead,
   TrTableHeadRow,
   TrTableRow,
 } from './TransactionTable.styled';
-import { transactionsListData } from 'utils';
-import { useMediaQuery } from 'react-responsive';
-import { Breakpoints } from 'common';
 
 export const TransactionTable = () => {
   const dispatch = useDispatch();
@@ -32,98 +30,66 @@ export const TransactionTable = () => {
     dispatch(fetchUserTransactions(date));
   }, [dispatch, date]);
 
-  const isMobile = useMediaQuery({ maxWidth: Breakpoints.md - 1 });
-
   const transactions = useSelector(getTransactions);
+  const filtredTransactions = transactions.filter(tr => tr.type === type);
+  const sortedTransactions = [...filtredTransactions].sort((a, b) => {
+    if (a.createdAt > b.createdAt) {
+      return -1;
+    } else {
+      return 1;
+    }
+  });
 
-  const transactionsList =
-    type !== 'all' ? transactions.filter(tr => tr.type === type) : transactions;
+  const tableRows = arr => {
+    const tableLength = arr.length < 10 ? 10 : arr.length;
 
-  console.log(transactionsList);
-  // react table build
+    const rows = [];
 
-  const columns = useMemo(
-    () => [
-      {
-        Header: 'Дата',
-        accessor: 'date', // accessor is the "key" in the data
-      },
-      {
-        Header: 'Описание',
-        accessor: 'description',
-      },
-      {
-        Header: 'Категория',
-        accessor: 'category',
-      },
-      {
-        Header: 'Сумма',
-        accessor: 'sum',
-      },
-    ],
-    []
-  );
+    for (let i = 0; i < tableLength; i += 1) {
+      rows.push(
+        <TrTableRow key={uuidv4()}>
+          <th>
+            {arr[i] ? `${arr[i].day}.${arr[i].month}.${arr[i].year}` : ''}
+          </th>
+          <th>{arr[i]?.description || ''}</th>
+          <th>{arr[i]?.category || ''}</th>
+          <Sum type={arr[i]?.type}>
+            {arr[i]
+              ? arr[i].type === 'costs'
+                ? `- ${arr[i].sum} грн.`
+                : `${arr[i].sum} грн.`
+              : ''}
+          </Sum>
+          <th>
+            {arr[i] && (
+              <DeleteTransactionBtn
+                onClick={async () => {
+                  await dispatch(removeTransaction(arr[i]._id));
+                  dispatch(fetchUserBalance());
+                  dispatch(fetchSummary());
+                }}
+                type="submit"
+              />
+            )}
+          </th>
+        </TrTableRow>
+      );
+    }
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({
-      columns,
-      data: transactionsListData(transactionsList),
-    });
+    return rows;
+  };
 
   return (
-    <TrTable {...getTableProps()}>
-      {!isMobile && (
-        <TrTableHead>
-          {headerGroups.map(headerGroup => (
-            <TrTableHeadRow
-              {...headerGroup.getHeaderGroupProps()}
-              key={uuidv4()}
-            >
-              {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps()} key={uuidv4()}>
-                  {column.render('Header')}
-                </th>
-              ))}
-            </TrTableHeadRow>
-          ))}
-        </TrTableHead>
-      )}
-
-      <TrTableBody {...getTableBodyProps()}>
-        {rows.map(row => {
-          console.log(row);
-          prepareRow(row);
-          return (
-            <TrTableRow
-              {...row.getRowProps()}
-              key={uuidv4()}
-              className={row.original.type}
-            >
-              {row.cells.map(cell => {
-                return (
-                  <td {...cell.getCellProps()} key={uuidv4()}>
-                    {cell.render('Cell')}
-                  </td>
-                );
-              })}
-              <td>
-                {row.original.id && (
-                  <DeleteTransactionBtn
-                    onClick={async () => {
-                      await dispatch(removeTransaction(row.original.id));
-                      dispatch(fetchUserBalance());
-                      dispatch(fetchSummary());
-                    }}
-                    type="submit"
-                  >
-                    <p>Delete</p>
-                  </DeleteTransactionBtn>
-                )}
-              </td>
-            </TrTableRow>
-          );
-        })}
-      </TrTableBody>
+    <TrTable>
+      <TrTableHead>
+        <TrTableHeadRow>
+          <th>Дата</th>
+          <th>Описание</th>
+          <th>Категория</th>
+          <th colSpan="2">Сумма</th>
+        </TrTableHeadRow>
+      </TrTableHead>
+      <TrTableBody>{tableRows(sortedTransactions)}</TrTableBody>
     </TrTable>
   );
 };
