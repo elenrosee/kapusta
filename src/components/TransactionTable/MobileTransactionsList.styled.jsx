@@ -2,10 +2,12 @@ import styled from 'styled-components';
 import trashBin from 'images/trashBin.svg';
 
 export const TransactionsList = styled.ul`
+  margin-left: auto;
+  margin-right: auto;
   flex-grow: 3;
   padding-top: 10px;
   padding-bottom: 10px;
-
+  width: 280px;
   background-color: white;
   overflow: scroll;
 `;
@@ -56,5 +58,5 @@ export const DeleteTransactionBtn = styled.button`
   background-size: auto;
   background-position: center;
 
-  margin-right: 10px;
+  margin-right: 5px;
 `;

@@ -1,3 +1,5 @@
+export { MonthPicker } from './MonthPicker';
+export { MonthCostsIncome } from './MonthCostsIncome';
 export { TransactionTable, MobileTransactionsList } from './TransactionTable';
 export { TransactionForm } from './TransactionForm';
 export { TypeButtons } from './TypeButtons';

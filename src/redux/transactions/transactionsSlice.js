@@ -4,6 +4,7 @@ import {
   addTransaction,
   changeDate,
   changeType,
+  fetchReportsData,
   fetchSummary,
   fetchUserTransactions,
   removeTransaction,
@@ -12,6 +13,7 @@ import {
 const initialState = {
   transactions: [],
   summary: [],
+  reportsData: [],
   type: 'all',
   date: { day: null, month: null, year: null },
   isLoading: false,
@@ -39,6 +41,16 @@ const transactionsSlice = createSlice({
       state.isLoading = false;
     },
     [fetchSummary.rejected]: state => {
+      state.isLoading = false;
+    },
+    [fetchReportsData.pending]: state => {
+      state.isLoading = true;
+    },
+    [fetchReportsData.fulfilled]: (state, action) => {
+      state.reportsData = action.payload.data;
+      state.isLoading = false;
+    },
+    [fetchReportsData.rejected]: state => {
       state.isLoading = false;
     },
     [addTransaction.pending]: state => {

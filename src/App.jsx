@@ -16,9 +16,8 @@ import { Breakpoints } from 'common';
 
 const AuthView = lazy(() => import('./views/AuthView'));
 const HomeView = lazy(() => import('./views/HomeView'));
-const ReportView = lazy(() => import('./views/ReportView'));
-const MobileReportView = lazy(() => import('./views/MobileReportView'));
 const MobileHomeView = lazy(() => import('./views/MobileHomeView'));
+const ReportView = lazy(() => import('./views/ReportView'));
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -73,17 +72,7 @@ export const App = () => {
               <Route
                 path="/reports"
                 exact
-                element={
-                  isLoggedIn ? (
-                    isMobile ? (
-                      <MobileReportView />
-                    ) : (
-                      <ReportView />
-                    )
-                  ) : (
-                    <Navigate to="/" />
-                  )
-                }
+                element={isLoggedIn ? <ReportView /> : <Navigate to="/" />}
               />
             </Routes>
           </Suspense>

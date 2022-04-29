@@ -13,10 +13,12 @@ export const Container = styled.div`
   ${MQ(Breakpoints.md)} {
     padding-left: 52px;
     padding-right: 52px;
+    padding-bottom: 57px;
   }
 
   ${MQ(Breakpoints.lg)} {
     padding-left: 110px;
     padding-right: 110px;
+    padding-bottom: 83px;
   }
 `;
