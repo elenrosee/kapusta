@@ -72,11 +72,22 @@ export const InputDescription = styled(Input)`
   }
 `;
 
-export const InputCategory = styled(Input)`
+export const ChooseCategoryBtn = styled.button`
+  display: flex;
+  align-items: center;
   border-radius: 0 0 20px 0;
   margin-bottom: 30px;
+  padding: 0 20px;
+  width: 282px;
+  height: 44px;
+  background-color: transparent;
+  border: 2px solid var(--bg-text-color);
+  outline: none;
+
+  color: var(--color-placeholder);
 
   ${MQ(Breakpoints.md)} {
+    border: 2px solid var(--bg-color);
     border-radius: 0;
     border-left: none;
     margin: 0;

@@ -13,21 +13,23 @@ import {
   getType,
 } from 'redux/transactions';
 import { fetchUserBalance } from 'redux/user';
+import { CategoriesList } from '.';
 import {
   ArrowBtn,
   FormContainer,
   Form,
   Btn,
   InputDescription,
-  InputCategory,
+  ChooseCategoryBtn,
   InputSum,
   BtnWraper,
 } from './TransactionForm.styled';
 
 export const TransactionForm = ({ openTrForm }) => {
   const [description, setDescription] = useState('');
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState('Категория товара');
   const [sum, setSum] = useState('');
+  const [isCategoryListOpen, setIsCategoryListOpen] = useState(false);
   const dispatch = useDispatch();
 
   const isMobile = useMediaQuery({ maxWidth: Breakpoints.md - 1 });
@@ -43,10 +45,6 @@ export const TransactionForm = ({ openTrForm }) => {
         setDescription(value);
         break;
 
-      case 'category':
-        setCategory(value);
-        break;
-
       case 'sum':
         setSum(value);
         break;
@@ -57,18 +55,18 @@ export const TransactionForm = ({ openTrForm }) => {
   };
 
   const newTransaction = {
+    ...date,
     type,
-    day: date.day,
     category,
     description,
-    month: date.month,
-    year: date.year,
     sum: Number(sum),
   };
 
+  console.log(newTransaction);
+
   const resetForm = () => {
     setDescription('');
-    setCategory('');
+    setCategory('Категория товара');
     setSum('');
   };
 
@@ -94,15 +92,20 @@ export const TransactionForm = ({ openTrForm }) => {
           maxLength="40"
           autoComplete="off"
         />
-        <InputCategory
-          type="text"
-          name="category"
-          value={category}
-          onChange={handleInputChange}
-          placeholder={'Категория товара'}
-          maxLength="40"
-          autoComplete="off"
-        />
+        <div>
+          <ChooseCategoryBtn
+            type="button"
+            onClick={() => setIsCategoryListOpen(true)}
+          >
+            {category}
+          </ChooseCategoryBtn>
+          {isCategoryListOpen && (
+            <CategoriesList
+              setCategory={setCategory}
+              setIsCategoryListOpen={setIsCategoryListOpen}
+            />
+          )}
+        </div>
         <InputSum
           type="number"
           name="sum"
@@ -118,7 +121,11 @@ export const TransactionForm = ({ openTrForm }) => {
         <Btn
           onClick={async e => {
             e.preventDefault();
-            if (description.length && category.length && sum.length > 0) {
+            if (
+              description.length &&
+              category !== 'Категория товара' &&
+              sum.length > 0
+            ) {
               await dispatch(addTransaction(newTransaction));
               dispatch(fetchUserBalance());
               dispatch(fetchSummary());

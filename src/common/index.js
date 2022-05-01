@@ -1,3 +1,5 @@
+export { CATEGORIES } from './options/categories';
+
 export { Button, Container } from './Styles';
 
 export { Modal } from './Modal';
