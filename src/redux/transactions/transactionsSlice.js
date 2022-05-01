@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import FormatDate from 'utils/FormatDate';
 
 import {
   addTransaction,
@@ -15,7 +16,7 @@ const initialState = {
   summary: [],
   reportsData: [],
   type: 'all',
-  date: { day: null, month: null, year: null },
+  date: FormatDate.getDateObj(new Date()),
   isLoading: false,
 };
 

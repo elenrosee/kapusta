@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchReportsData, getReportsData } from 'redux/transactions';
+import { fetchReportsData, getDate, getReportsData } from 'redux/transactions';
 import { format } from 'date-fns/esm';
-import ru from 'date-fns/locale/ru';
+import { parse } from 'date-fns';
 
 import {
   BtnLeft,
@@ -14,41 +13,48 @@ import {
   Wraper,
 } from './MonthPicker.styled';
 
-export const MonthPicker = () => {
-  const dateNow = new Date();
+import FormatDate from 'utils/FormatDate';
 
-  const [currentMonth, setCurrentMonth] = useState();
-  const [currentYear, setCurrentYear] = useState();
+export const MonthPicker = () => {
+  const { day, month, year } = useSelector(getDate);
+
+  const currentMonth = parse(
+    `${day}.${month}.${year}`,
+    'dd.MM.yyyy',
+    new Date()
+  );
+
+  const [count, setCount] = useState(1);
+  const [monthName, setMonthName] = useState(
+    FormatDate.getMonthName(currentMonth)
+  );
 
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(fetchReportsData({ year: '2022', month: '04' }));
-  // }, [dispatch]);
-  let i = 0;
+  useEffect(() => {
+    currentMonth.setMonth(Number(format(currentMonth, 'M') - count));
+    setMonthName(FormatDate.getMonthName(currentMonth));
+    dispatch(fetchReportsData(FormatDate.getMonthYearObj(currentMonth)));
+  }, [dispatch, count]);
 
   const changeMonth = e => {
-    e.currentTarget.name === 'leftButton' ? (i += 1) : (i -= 1);
-
-    dateNow.setMonth(Number(format(dateNow, 'M')) - i);
-    console.log(dateNow);
+    if (e.currentTarget.name === 'leftButton') {
+      setCount(count + 1);
+    } else {
+      count !== 1 ? setCount(count - 1) : setCount(count);
+    }
   };
 
   const reportsData = useSelector(getReportsData);
-
-  // dateNow.setMonth(Number(format(dateNow, 'M')) - 2);
-
-  // console.log(format(dateNow, 'LLLL', { locale: ru }));
-
-  // setMonth(Number(format(dateNow, 'M')) - 1)
+  console.log(reportsData);
 
   return (
     <Wraper>
       <Text>Текущий период:</Text>
       <CurrentMonth>
         <BtnLeft onClick={e => changeMonth(e)} name="leftButton" />
-        <Month>{format(dateNow, 'LLLL', { locale: ru })}</Month>
-        <BtnRight onClick={() => changeMonth} name="rightButton" />
+        <Month>{monthName}</Month>
+        <BtnRight onClick={e => changeMonth(e)} name="rightButton" />
       </CurrentMonth>
     </Wraper>
   );

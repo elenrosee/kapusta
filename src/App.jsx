@@ -1,7 +1,6 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { format } from 'date-fns/esm';
 
 import { AppBar } from 'components';
 import { GlobalStyle } from 'GlobalStyle';
@@ -10,7 +9,6 @@ import {
   getIsFetchingCurrent,
   getIsLoggedIn,
 } from 'redux/user';
-import { changeDate } from 'redux/transactions';
 import { useMediaQuery } from 'react-responsive';
 import { Breakpoints } from 'common';
 
@@ -26,15 +24,8 @@ export const App = () => {
 
   const isMobile = useMediaQuery({ maxWidth: Breakpoints.md - 1 });
 
-  const date = {
-    year: format(new Date(), 'yyyy'),
-    month: format(new Date(), 'MM'),
-    day: format(new Date(), 'dd'),
-  };
-
   useEffect(() => {
     dispatch(fetchCurrentUser());
-    dispatch(changeDate(date));
   }, [dispatch]);
 
   return (

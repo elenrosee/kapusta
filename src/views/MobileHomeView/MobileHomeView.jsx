@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import {
   Balance,
@@ -8,8 +8,7 @@ import {
   MobileTypeButtons,
   TransactionForm,
 } from 'components';
-import { useDispatch } from 'react-redux';
-import { changeType } from 'redux/transactions';
+
 import {
   MobileViewContainer,
   MobilleHomeContainer,
@@ -17,11 +16,6 @@ import {
 
 export default function MobileHomeView() {
   const [trForm, openTrForm] = useState(false);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(changeType('all'));
-  }, [dispatch]);
 
   return (
     <>

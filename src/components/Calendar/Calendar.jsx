@@ -10,8 +10,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import ru from 'date-fns/locale/ru';
 registerLocale('ru', ru);
 
-import { format } from 'date-fns/esm';
 import { changeDate } from 'redux/transactions';
+import FormatDate from 'utils/FormatDate';
 
 export const Calendar = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -23,13 +23,7 @@ export const Calendar = () => {
       selected={startDate}
       onChange={date => {
         setStartDate(date);
-        dispatch(
-          changeDate({
-            year: format(date, 'yyyy'),
-            month: format(date, 'MM'),
-            day: format(date, 'dd'),
-          })
-        );
+        dispatch(changeDate(FormatDate.getDateObj(date)));
       }}
       dateFormat="dd.MM.yyyy"
       width="400"
