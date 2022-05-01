@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchReportsData, getDate, getReportsData } from 'redux/transactions';
+import { fetchReportsData, getReportsData } from 'redux/transactions';
 import { format } from 'date-fns/esm';
-import { parse } from 'date-fns';
 
 import {
   BtnLeft,
@@ -16,13 +15,7 @@ import {
 import FormatDate from 'utils/FormatDate';
 
 export const MonthPicker = () => {
-  const { day, month, year } = useSelector(getDate);
-
-  const currentMonth = parse(
-    `${day}.${month}.${year}`,
-    'dd.MM.yyyy',
-    new Date()
-  );
+  const currentMonth = new Date();
 
   const [count, setCount] = useState(1);
   const [monthName, setMonthName] = useState(
@@ -38,11 +31,9 @@ export const MonthPicker = () => {
   }, [dispatch, count]);
 
   const changeMonth = e => {
-    if (e.currentTarget.name === 'leftButton') {
-      setCount(count + 1);
-    } else {
-      count !== 1 ? setCount(count - 1) : setCount(count);
-    }
+    e.currentTarget.name === 'leftButton'
+      ? setCount(count + 1)
+      : setCount(count - 1);
   };
 
   const reportsData = useSelector(getReportsData);
