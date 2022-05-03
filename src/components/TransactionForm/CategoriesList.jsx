@@ -2,6 +2,7 @@
 import { CATEGORIES } from 'common';
 import { useSelector } from 'react-redux';
 import { getType } from 'redux/transactions';
+import { AllCategories, CategoryBtn } from './CategoriesList.styled';
 
 export const CategoriesList = ({ setCategory, setIsCategoryListOpen }) => {
   const type = useSelector(getType);
@@ -10,10 +11,10 @@ export const CategoriesList = ({ setCategory, setIsCategoryListOpen }) => {
   );
 
   return (
-    <ul>
+    <AllCategories>
       {filtredCategories.map(category => (
         <li key={filtredCategories.indexOf(category)}>
-          <button
+          <CategoryBtn
             type="button"
             onClick={() => {
               setCategory(category.value);
@@ -21,9 +22,9 @@ export const CategoriesList = ({ setCategory, setIsCategoryListOpen }) => {
             }}
           >
             {category.value}
-          </button>
+          </CategoryBtn>
         </li>
       ))}
-    </ul>
+    </AllCategories>
   );
 };

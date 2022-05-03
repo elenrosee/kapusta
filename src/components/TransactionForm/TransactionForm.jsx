@@ -23,7 +23,10 @@ import {
   ChooseCategoryBtn,
   InputSum,
   BtnWraper,
+  CategoryWraper,
+  OpenCategoriesMenuIcon,
 } from './TransactionForm.styled';
+import arrowhead from 'images/arrowhead.svg';
 
 export const TransactionForm = ({ openTrForm }) => {
   const [description, setDescription] = useState('');
@@ -62,8 +65,6 @@ export const TransactionForm = ({ openTrForm }) => {
     sum: Number(sum),
   };
 
-  console.log(newTransaction);
-
   const resetForm = () => {
     setDescription('');
     setCategory('Категория товара');
@@ -92,12 +93,22 @@ export const TransactionForm = ({ openTrForm }) => {
           maxLength="40"
           autoComplete="off"
         />
-        <div>
+        <CategoryWraper>
           <ChooseCategoryBtn
+            isCategoryListOpen={isCategoryListOpen}
             type="button"
-            onClick={() => setIsCategoryListOpen(true)}
+            onClick={() =>
+              !isCategoryListOpen
+                ? setIsCategoryListOpen(true)
+                : setIsCategoryListOpen(false)
+            }
           >
             {category}
+            <OpenCategoriesMenuIcon
+              src={arrowhead}
+              isCategoryListOpen={isCategoryListOpen}
+              alt="Иконка открытия меню категорий"
+            />
           </ChooseCategoryBtn>
           {isCategoryListOpen && (
             <CategoriesList
@@ -105,7 +116,7 @@ export const TransactionForm = ({ openTrForm }) => {
               setIsCategoryListOpen={setIsCategoryListOpen}
             />
           )}
-        </div>
+        </CategoryWraper>
         <InputSum
           type="number"
           name="sum"

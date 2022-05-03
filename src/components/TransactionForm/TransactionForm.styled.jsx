@@ -72,10 +72,16 @@ export const InputDescription = styled(Input)`
   }
 `;
 
+export const CategoryWraper = styled.div`
+  position: relative;
+`;
+
 export const ChooseCategoryBtn = styled.button`
   display: flex;
   align-items: center;
-  border-radius: 0 0 20px 0;
+  justify-content: space-between;
+  border-radius: ${({ isCategoryListOpen }) =>
+    isCategoryListOpen ? '0' : '0 0 20px 0'};
   margin-bottom: 30px;
   padding: 0 20px;
   width: 282px;
@@ -138,4 +144,10 @@ export const BtnWraper = styled.div`
 
 export const Btn = styled(Button)`
   background-color: var(--bg-color);
+`;
+
+export const OpenCategoriesMenuIcon = styled.img`
+  transform: ${({ isCategoryListOpen }) =>
+    isCategoryListOpen ? 'rotate(180deg)' : ''};
+  height: 8px;
 `;
