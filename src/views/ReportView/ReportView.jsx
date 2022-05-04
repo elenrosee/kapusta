@@ -1,4 +1,9 @@
-import { BackToMainButton, MonthCostsIncome, MonthPicker } from 'components';
+import {
+  BackToMainButton,
+  MonthCostsIncome,
+  MonthPicker,
+  Reports,
+} from 'components';
 
 export default function MobileReportView() {
   return (
@@ -9,8 +14,7 @@ export default function MobileReportView() {
         <span> balance</span>
       </div>
       <MonthCostsIncome />
-      <div>reports by category</div>
-      <div>chart</div>
+      <Reports />
     </div>
   );
 }

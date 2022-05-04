@@ -29,7 +29,7 @@ export const Wraper = styled.div`
 export const TypeText = styled.p`
   font-weight: 700;
   font-size: 14px;
-  color: var(--text-color);
+  color: var(--text-color-3);
 
   margin-bottom: 5px;
 `;

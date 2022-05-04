@@ -1,3 +1,4 @@
+export { Reports } from './Reports';
 export { MonthPicker } from './MonthPicker';
 export { MonthCostsIncome } from './MonthCostsIncome';
 export { TransactionTable, MobileTransactionsList } from './TransactionTable';
@@ -12,3 +13,7 @@ export { Balance } from './UserBalance';
 export { BackToMainButton, GoToReportsButton } from './PageNavButtons';
 export { AppBar } from './AppBar';
 export { AuthForm } from './AuthForm';
+
+// iconComponents
+
+export { TypeIcons } from 'iconComponents';

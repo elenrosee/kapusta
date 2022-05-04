@@ -1,80 +1,68 @@
-import transport from 'images/categoriesImg/transport.svg';
-import alcohol from 'images/categoriesImg/alcohol.svg';
-import book from 'images/categoriesImg/book.svg';
-import entertainment from 'images/categoriesImg/entertainment.svg';
-import health from 'images/categoriesImg/health.svg';
-import hobby from 'images/categoriesImg/hobby.svg';
-import home from 'images/categoriesImg/home.svg';
-import income from 'images/categoriesImg/income.svg';
-import products from 'images/categoriesImg/products.svg';
-import salary from 'images/categoriesImg/salary.svg';
-import tools from 'images/categoriesImg/tools.svg';
-import ufo from 'images/categoriesImg/ufo.svg';
-import invoice from 'images/categoriesImg/invoice.svg';
+import { TypeIcons } from 'iconComponents';
 
 export const CATEGORIES = [
   {
-    img: transport,
+    img: TypeIcons.SvgTransport,
     value: 'Транспорт',
     type: 'costs',
   },
   {
-    img: products,
+    img: TypeIcons.SvgProducts,
     value: 'Продукты',
     type: 'costs',
   },
   {
-    img: health,
+    img: TypeIcons.SvgHealth,
     value: 'Здоровье',
     type: 'costs',
   },
   {
-    img: alcohol,
+    img: TypeIcons.SvgAlcohol,
     value: 'Алкоголь',
     type: 'costs',
   },
   {
-    img: entertainment,
+    img: TypeIcons.SvgEntertainment,
     value: 'Развлечения',
     type: 'costs',
   },
   {
-    img: home,
+    img: TypeIcons.SvgHome,
     value: 'Всё для дома',
     type: 'costs',
   },
   {
-    img: tools,
+    img: TypeIcons.SvgTools,
     value: 'Техника',
     type: 'costs',
   },
   {
-    img: invoice,
+    img: TypeIcons.SvgInvoice,
     value: 'Коммуналка, связь',
     type: 'costs',
   },
   {
-    img: hobby,
+    img: TypeIcons.SvgHobby,
     value: 'Спорт, хобби',
     type: 'costs',
   },
   {
-    img: book,
+    img: TypeIcons.SvgBook,
     value: 'Образование',
     type: 'costs',
   },
   {
-    img: ufo,
+    img: TypeIcons.SvgUfo,
     value: 'Прочее',
     type: 'costs',
   },
   {
-    nameImg: salary,
+    img: TypeIcons.SvgSalary,
     value: 'ЗП',
     type: 'income',
   },
   {
-    nameImg: income,
+    img: TypeIcons.SvgIncome,
     value: 'Доп. доход',
     type: 'income',
   },

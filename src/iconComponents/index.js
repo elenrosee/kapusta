@@ -1,0 +1,1 @@
+export { TypeIcons } from './TypeIcons';
