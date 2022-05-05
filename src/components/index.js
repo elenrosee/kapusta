@@ -17,3 +17,4 @@ export { AuthForm } from './AuthForm';
 // iconComponents
 
 export { TypeIcons } from 'iconComponents';
+export { SvgArrowhead } from 'iconComponents';

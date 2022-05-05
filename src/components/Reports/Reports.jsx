@@ -1,11 +1,11 @@
-import { ReportByCategories } from '.';
+import { Chart, ReportByCategories, TypeSwitcher } from '.';
 
 export const Reports = () => {
   return (
     <>
-      <div>type switcher</div>
+      <TypeSwitcher />
       <ReportByCategories />
-      <div>chart</div>
+      <Chart />
     </>
   );
 };

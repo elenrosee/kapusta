@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { CATEGORIES } from 'common';
 import { useSelector } from 'react-redux';
-import { getReportsData } from 'redux/transactions';
+import { getReportsData, getType } from 'redux/transactions';
 
 export const ReportByCategories = () => {
   const reportData = useSelector(getReportsData);
+  const type = useSelector(getType);
 
   const listElements = arr => {
     const elements = [];
@@ -28,7 +29,7 @@ export const ReportByCategories = () => {
 
   return (
     <>
-      <ul>{listElements(reportData.income)}</ul>
+      <ul>{listElements(reportData[type])}</ul>
       <div>reports by category</div>
     </>
   );

@@ -1,20 +1,13 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchReportsData } from 'redux/transactions';
 import { format } from 'date-fns/esm';
 
-import {
-  ArrowIcon,
-  BtnLeft,
-  BtnRight,
-  CurrentMonth,
-  Month,
-  Text,
-  Wraper,
-} from './MonthPicker.styled';
-import arrowheadOrange from 'images/arrowheadOrange.svg';
+import { Text, Wraper } from './MonthPicker.styled';
 
 import FormatDate from 'utils/FormatDate';
+import { Switcher } from 'common';
 
 export const MonthPicker = () => {
   const currentMonth = new Date();
@@ -34,34 +27,14 @@ export const MonthPicker = () => {
     dispatch(fetchReportsData(FormatDate.getMonthYearObj(currentMonth)));
   }, [dispatch, count]);
 
-  const changeMonth = e => {
-    e.currentTarget.name === 'leftButton'
-      ? setCount(count + 1)
-      : setCount(count - 1);
-  };
-
   return (
     <Wraper>
       <Text>Текущий период:</Text>
-      <CurrentMonth>
-        <BtnLeft onClick={e => changeMonth(e)} name="leftButton">
-          <ArrowIcon
-            src={arrowheadOrange}
-            rotate={'180'}
-            alt="Иконка открытия меню категорий"
-          />
-        </BtnLeft>
-        <Month>
-          {monthName} {year}
-        </Month>
-        <BtnRight onClick={e => changeMonth(e)} name="rightButton">
-          <ArrowIcon
-            src={arrowheadOrange}
-            rotate={'0'}
-            alt="Иконка открытия меню категорий"
-          />
-        </BtnRight>
-      </CurrentMonth>
+      <Switcher
+        onLeftClick={() => setCount(count + 1)}
+        onRightClick={() => setCount(count - 1)}
+        text={`${monthName} ${year}`}
+      />
     </Wraper>
   );
 };
