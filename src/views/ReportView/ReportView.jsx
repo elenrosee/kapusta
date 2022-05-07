@@ -4,17 +4,20 @@ import {
   MonthPicker,
   Reports,
 } from 'components';
+import { ReportViewContainer, Wraper } from './ReportView.styled';
 
-export default function MobileReportView() {
+export default function ReportView() {
   return (
-    <div>
+    <Wraper>
       <BackToMainButton />
-      <div>
-        <MonthPicker />
-        <span> balance</span>
-      </div>
-      <MonthCostsIncome />
-      <Reports />
-    </div>
+      <ReportViewContainer>
+        <div>
+          <MonthPicker />
+          <span> balance</span>
+        </div>
+        <MonthCostsIncome />
+        <Reports />
+      </ReportViewContainer>
+    </Wraper>
   );
 }

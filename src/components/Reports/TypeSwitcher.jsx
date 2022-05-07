@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -5,7 +6,7 @@ import { changeType, getType } from 'redux/transactions';
 
 import { Switcher } from 'common';
 
-export const TypeSwitcher = () => {
+export const TypeSwitcher = ({ setCategory }) => {
   const dispatch = useDispatch();
   const type = useSelector(getType);
 
@@ -17,6 +18,8 @@ export const TypeSwitcher = () => {
     type === 'costs'
       ? dispatch(changeType('income'))
       : dispatch(changeType('costs'));
+
+    setCategory('all');
   };
 
   return (

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wraper = styled.div`
-  display: inline-flex;
+  display: flex;
   flex-direction: row;
 
   padding: 7px;

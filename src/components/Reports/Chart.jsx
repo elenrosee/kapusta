@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from 'react';
+
 import { useMediaQuery } from 'react-responsive';
 import { Container } from './Chart.styled';
 import {
@@ -7,99 +7,78 @@ import {
   CategoryScale,
   LinearScale,
   BarElement,
-  Title,
-  Tooltip,
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Breakpoints } from 'common';
+import { useSelector } from 'react-redux';
+import { getReportsData, getType } from 'redux/transactions';
+import { useEffect, useState } from 'react';
+import { optionsForChart } from './optionsForChart';
 
 ChartJS.register(
+  ChartDataLabels,
   CategoryScale,
   LinearScale,
   BarElement,
-  Title,
-  Tooltip,
   Legend
 );
-export const Chart = ({ transactions, chartsCategoryId = 0 }) => {
-  const [labels, setLabelsArr] = useState([]);
-  const [indexAxisArr, setIndexAxisArr] = useState(5000);
-  const [category, setCategory] = useState(0);
+
+export const Chart = ({ category }) => {
+  const [labels, setLabels] = useState([]);
+  const [values, setValues] = useState([]);
 
   const isMobile = useMediaQuery({ maxWidth: Breakpoints.md - 1 });
-  const isTabletOrDesktop = useMediaQuery({ minWidth: Breakpoints.md });
 
-  const optionsMobile = {
-    indexAxis: 'y',
-    elements: {
-      bar: {
-        borderWidth: 2,
-      },
-    },
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: 'right',
-      },
-      title: {
-        display: false,
-        text: 'График',
-      },
-    },
-  };
-
-  const optionsDesktop = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: 'График',
-      },
-    },
-  };
+  const transactionsType = useSelector(getType);
+  const reportsData = useSelector(getReportsData);
 
   useEffect(() => {
-    transactions?.map((item, i) => {
-      if (i === category) {
-        const arr = Object.keys(item.description);
-        setLabelsArr(arr);
-      }
-    });
-    setCategory(chartsCategoryId);
-    getNumbersForIndexAxis(transactions);
-  }, [category, transactions, chartsCategoryId]);
+    if (reportsData.length === 0) {
+      return;
+    }
 
-  const getNumbersForIndexAxis = transactions => {
-    transactions?.map((item, i) => {
-      if (i === category) {
-        const arr = Object.values(item.description);
-        setIndexAxisArr(arr);
-      }
-    });
-  };
+    if (category !== 'all') {
+      const categoryData = reportsData[transactionsType].find(
+        el => el.category === category
+      );
+
+      setLabels(Object.keys(categoryData.description));
+      setValues(Object.values(categoryData.description));
+    } else {
+      const categories = reportsData[transactionsType].reduce(
+        (acc, { category, sum }) => {
+          acc[category] = sum;
+          return acc;
+        },
+        {}
+      );
+
+      setLabels(Object.keys(categories));
+      setValues(Object.values(categories));
+    }
+  }, [category, transactionsType, reportsData]);
+
+  const options = optionsForChart(isMobile);
 
   const data = {
     labels,
     datasets: [
       {
-        label: '',
-        data: indexAxisArr,
+        labels,
+        data: values,
         backgroundColor: ['rgba(255, 117, 29, 1)', 'rgba(255, 218, 192, 1)'],
         borderRadius: 10,
-        barThickness: isMobile ? 20 : 45,
+        barThickness: isMobile ? 20 : 38,
+        plugins: [ChartDataLabels],
       },
     ],
   };
 
   return (
     <Container>
-      {isMobile && <Bar options={optionsMobile} data={data} />}
-      {isTabletOrDesktop && <Bar options={optionsDesktop} data={data} />}
+      <Bar options={options} data={data} height={200} />
     </Container>
   );
 };
