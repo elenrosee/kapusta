@@ -1,3 +1,4 @@
+export { Chart } from './Chart';
 export { Reports } from './Reports';
 export { MonthPicker } from './MonthPicker';
 export { MonthCostsIncome } from './MonthCostsIncome';

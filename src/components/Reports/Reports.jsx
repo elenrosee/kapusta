@@ -1,5 +1,6 @@
+import { Chart } from 'components';
 import { useState } from 'react';
-import { Chart, ReportByCategories, TypeSwitcher } from '.';
+import { ReportByCategories, TypeSwitcher } from '.';
 
 export const Reports = () => {
   const [category, setCategory] = useState('all');

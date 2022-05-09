@@ -39,7 +39,7 @@ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     sans-serif;
 letter-spacing: 0.04em;
 /*  */
-background-color: var(--bg-color);
+// background-color: var(--bg-color);
 /*  */
 font-size: 12px;
 line-height: 14px;
