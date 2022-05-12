@@ -1,12 +1,17 @@
 import {
   BackToMainButton,
+  Chart,
   MonthCostsIncome,
   MonthPicker,
-  Reports,
+  ReportByCategories,
+  TypeSwitcher,
 } from 'components';
+import { useState } from 'react';
 import { ReportViewContainer, Wraper } from './ReportView.styled';
 
 export default function ReportView() {
+  const [category, setCategory] = useState('all');
+
   return (
     <Wraper>
       <BackToMainButton />
@@ -16,7 +21,9 @@ export default function ReportView() {
           <span> balance</span>
         </div>
         <MonthCostsIncome />
-        <Reports />
+        <TypeSwitcher setCategory={setCategory} />
+        <ReportByCategories setCategory={setCategory} />
+        <Chart category={category} />
       </ReportViewContainer>
     </Wraper>
   );

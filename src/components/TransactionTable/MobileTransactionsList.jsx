@@ -12,6 +12,7 @@ import {
 import { fetchUserBalance } from 'redux/user';
 import {
   Date,
+  DateAndCategory,
   DeleteTransactionBtn,
   Description,
   Sum,
@@ -51,10 +52,10 @@ export const MobileTransactionsList = () => {
             <Transaction key={id}>
               <Text>
                 <Description>{description}</Description>
-                <div>
+                <DateAndCategory>
                   <Date>{`${day}.${month}.${year}`}</Date>
                   <span>{category}</span>
-                </div>
+                </DateAndCategory>
               </Text>
               <SumAndBtn>
                 <Sum type={type}>

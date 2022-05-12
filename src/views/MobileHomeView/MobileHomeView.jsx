@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   Balance,
@@ -13,9 +13,17 @@ import {
   MobileViewContainer,
   MobilleHomeContainer,
 } from './MobileHomeView.styled';
+import { changeType } from 'redux/transactions';
+import { useDispatch } from 'react-redux';
 
 export default function MobileHomeView() {
   const [trForm, openTrForm] = useState(false);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(changeType('all'));
+  }, []);
 
   return (
     <>

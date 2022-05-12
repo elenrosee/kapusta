@@ -14,7 +14,7 @@ import {
 const initialState = {
   transactions: [],
   summary: [],
-  reportsData: [],
+  reportsData: { costs: [], income: [] },
   type: 'all',
   date: FormatDate.getDateObj(new Date()),
   isLoading: false,

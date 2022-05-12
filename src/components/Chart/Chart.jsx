@@ -35,10 +35,6 @@ export const Chart = ({ category }) => {
   const reportsData = useSelector(getReportsData);
 
   useEffect(() => {
-    if (reportsData.length === 0) {
-      return;
-    }
-
     if (category !== 'all') {
       const categoryData = reportsData[transactionsType].find(
         el => el.category === category
@@ -47,7 +43,7 @@ export const Chart = ({ category }) => {
       setLabels(Object.keys(categoryData.description));
       setValues(Object.values(categoryData.description));
     } else {
-      const categories = reportsData[transactionsType].reduce(
+      const categoryData = reportsData[transactionsType]?.reduce(
         (acc, { category, sum }) => {
           acc[category] = sum;
           return acc;
@@ -55,8 +51,10 @@ export const Chart = ({ category }) => {
         {}
       );
 
-      setLabels(Object.keys(categories));
-      setValues(Object.values(categories));
+      categoryData
+        ? (setLabels(Object.keys(categoryData)),
+          setValues(Object.values(categoryData)))
+        : '';
     }
   }, [category, transactionsType, reportsData]);
 
@@ -77,8 +75,10 @@ export const Chart = ({ category }) => {
   };
 
   return (
-    <Container>
-      <Bar options={options} data={data} height={200} />
-    </Container>
+    <>
+      <Container>
+        <Bar options={options} data={data} height={200} />
+      </Container>
+    </>
   );
 };
