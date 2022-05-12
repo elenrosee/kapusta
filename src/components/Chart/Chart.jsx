@@ -7,7 +7,6 @@ import {
   CategoryScale,
   LinearScale,
   BarElement,
-  Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
@@ -15,15 +14,9 @@ import { Breakpoints } from 'common';
 import { useSelector } from 'react-redux';
 import { getReportsData, getType } from 'redux/transactions';
 import { useEffect, useState } from 'react';
-import { optionsForChart } from './optionsForChart';
+import { chartOptions } from './chartOptions';
 
-ChartJS.register(
-  ChartDataLabels,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Legend
-);
+ChartJS.register(ChartDataLabels, CategoryScale, LinearScale, BarElement);
 
 export const Chart = ({ category }) => {
   const [labels, setLabels] = useState([]);
@@ -58,8 +51,6 @@ export const Chart = ({ category }) => {
     }
   }, [category, transactionsType, reportsData]);
 
-  const options = optionsForChart(isMobile);
-
   const data = {
     labels,
     datasets: [
@@ -69,6 +60,7 @@ export const Chart = ({ category }) => {
         backgroundColor: ['rgba(255, 117, 29, 1)', 'rgba(255, 218, 192, 1)'],
         borderRadius: 10,
         barThickness: isMobile ? 20 : 38,
+        minBarLength: isMobile ? 65 : 0,
         plugins: [ChartDataLabels],
       },
     ],
@@ -77,7 +69,7 @@ export const Chart = ({ category }) => {
   return (
     <>
       <Container>
-        <Bar options={options} data={data} height={200} />
+        {isMobile && <Bar options={chartOptions.mobile} data={data} />}
       </Container>
     </>
   );
