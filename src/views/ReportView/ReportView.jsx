@@ -1,30 +1,37 @@
+import { useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
+
+import { Breakpoints } from 'common';
 import {
   BackToMainButton,
+  Balance,
   Chart,
   MonthCostsIncome,
   MonthPicker,
   ReportByCategories,
   TypeSwitcher,
 } from 'components';
-import { useState } from 'react';
-import { ReportViewContainer, Wraper } from './ReportView.styled';
+
+import { MonthAndBalance, ReportViewContainer } from './ReportView.styled';
 
 export default function ReportView() {
   const [category, setCategory] = useState('all');
 
+  const isMobile = useMediaQuery({ maxWidth: Breakpoints.md - 1 });
+
   return (
-    <Wraper>
-      <BackToMainButton />
-      <ReportViewContainer>
-        <div>
-          <MonthPicker />
-          <span> balance</span>
-        </div>
-        <MonthCostsIncome />
-        <TypeSwitcher setCategory={setCategory} />
-        <ReportByCategories setCategory={setCategory} />
-        <Chart category={category} />
-      </ReportViewContainer>
-    </Wraper>
+    <ReportViewContainer>
+      {isMobile && <BackToMainButton />}
+      <MonthAndBalance>
+        {!isMobile && <BackToMainButton />}
+        {isMobile && <MonthPicker />}
+        <Balance typeView={'report'} />
+        {!isMobile && <MonthPicker />}
+      </MonthAndBalance>
+      <MonthCostsIncome />
+      <TypeSwitcher setCategory={setCategory} />
+      <ReportByCategories setCategory={setCategory} />
+      <Chart category={category} />
+    </ReportViewContainer>
   );
 }

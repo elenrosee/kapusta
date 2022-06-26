@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -14,7 +15,7 @@ import {
   BalanceText,
 } from './Balance.styled';
 
-export const Balance = () => {
+export const Balance = ({ typeView = 'home' }) => {
   const [value, setValue] = useState('');
   const [defaultValue, setDefaultValue] = useState('');
   const userBalance = useSelector(getUserBalance);
@@ -43,22 +44,25 @@ export const Balance = () => {
             value={defaultValue}
             onChange={handleInputChange}
             placeholder={value}
+            disabled={typeView === 'report' ? true : false}
             maxLength="20"
             autoComplete="off"
           />
-          <BalanceButton
-            onClick={async () => {
-              if (defaultValue.length > 0) {
-                await dispatch(updateUserBalance(defaultValue));
-                dispatch(fetchUserTransactions(date));
-                dispatch(fetchSummary());
-                setDefaultValue('');
-              }
-            }}
-            type="submit"
-          >
-            Подтвердить
-          </BalanceButton>
+          {typeView !== 'report' && (
+            <BalanceButton
+              onClick={async () => {
+                if (defaultValue.length > 0) {
+                  await dispatch(updateUserBalance(defaultValue));
+                  dispatch(fetchUserTransactions(date));
+                  dispatch(fetchSummary());
+                  setDefaultValue('');
+                }
+              }}
+              type="submit"
+            >
+              Подтвердить
+            </BalanceButton>
+          )}
         </div>
       </BalanceForm>
     </>

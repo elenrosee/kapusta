@@ -35,7 +35,11 @@ const mobile = {
           display: true,
           align: 'end',
           anchor: 'start',
-          color: ['rgba(255, 218, 192, 1)', 'rgba(255, 117, 29, 1)'],
+          color: [
+            'rgba(255, 218, 192, 1)',
+            'rgba(255, 117, 29, 1)',
+            'rgba(255, 117, 29, 1)',
+          ],
         },
       ],
     },
@@ -82,13 +86,10 @@ const tablet = {
           formatter: function (value) {
             return `${value} грн`;
           },
-          display: 'auto',
+          display: true,
           anchor: 'end',
           align: 'top',
           color: '#52555F',
-          padding: {
-            bottom: '10',
-          },
         },
       ],
     },

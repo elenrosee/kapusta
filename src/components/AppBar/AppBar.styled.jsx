@@ -9,7 +9,8 @@ export const AppBarWrapper = styled.div`
   width: 100%;
   background-color: var(--bg-text-color);
   padding: 12px 19px;
-  position: relative;
+  position: fixed;
+  top: 0;
   z-index: 1;
 
   ${MQ(Breakpoints.md)} {

@@ -22,6 +22,7 @@ export const Chart = ({ category }) => {
   const [labels, setLabels] = useState([]);
   const [values, setValues] = useState([]);
 
+  const isTablet = useMediaQuery({ minWidth: Breakpoints.md });
   const isMobile = useMediaQuery({ maxWidth: Breakpoints.md - 1 });
 
   const transactionsType = useSelector(getType);
@@ -57,20 +58,27 @@ export const Chart = ({ category }) => {
       {
         labels,
         data: values,
-        backgroundColor: ['rgba(255, 117, 29, 1)', 'rgba(255, 218, 192, 1)'],
+        backgroundColor: [
+          'rgba(255, 117, 29, 1)',
+          'rgba(255, 218, 192, 1)',
+          'rgba(255, 218, 192, 1)',
+        ],
         borderRadius: 10,
-        barThickness: isMobile ? 20 : 38,
-        minBarLength: isMobile ? 65 : 0,
+        barThickness: 20,
+        minBarLength: 65,
         plugins: [ChartDataLabels],
       },
     ],
   };
 
   return (
-    <>
-      <Container>
-        {isMobile && <Bar options={chartOptions.mobile} data={data} />}
-      </Container>
-    </>
+    <Container>
+      {isMobile && (
+        <Bar options={chartOptions.mobile} data={data} width={280} />
+      )}
+      {isTablet && (
+        <Bar options={chartOptions.mobile} data={data} width={605} />
+      )}
+    </Container>
   );
 };

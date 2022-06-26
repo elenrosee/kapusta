@@ -9,7 +9,7 @@ import { useMediaQuery } from 'react-responsive';
 import { TransactionsContainer } from './Transactions.styled';
 
 export const Transactions = () => {
-  const isDesctop = useMediaQuery({ minWidth: Breakpoints.lg });
+  const isDesktop = useMediaQuery({ minWidth: Breakpoints.lg });
 
   return (
     <>
@@ -17,9 +17,9 @@ export const Transactions = () => {
       <TransactionsContainer>
         <TransactionForm />
         <TransactionTable />
-        {isDesctop && <Summary />}
+        {isDesktop && <Summary />}
       </TransactionsContainer>
-      {!isDesctop && <Summary />}
+      {!isDesktop && <Summary />}
     </>
   );
 };

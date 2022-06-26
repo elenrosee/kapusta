@@ -148,6 +148,6 @@ export const Btn = styled(Button)`
 
 export const OpenCategoriesMenuIcon = styled.img`
   transform: ${({ isCategoryListOpen }) =>
-    isCategoryListOpen ? 'rotate(180deg)' : ''};
+    isCategoryListOpen ? '' : 'rotate(180deg)'};
   height: 8px;
 `;

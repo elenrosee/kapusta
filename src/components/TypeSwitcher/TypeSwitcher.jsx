@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeType, getType } from 'redux/transactions';
 
 import { Switcher } from 'common';
+import { Wraper } from './TypeSwitcher.styled';
 
 export const TypeSwitcher = ({ setCategory }) => {
   const dispatch = useDispatch();
@@ -23,12 +24,12 @@ export const TypeSwitcher = ({ setCategory }) => {
   };
 
   return (
-    <>
+    <Wraper>
       <Switcher
         onLeftClick={changeTypeToggle}
         onRightClick={changeTypeToggle}
         text={type === 'costs' ? 'Расходы' : 'Доходы'}
       />
-    </>
+    </Wraper>
   );
 };

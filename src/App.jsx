@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { AppBar } from 'components';
+import { AppBar, BackgroundAuth, BackgroundHome } from 'components';
 import { GlobalStyle } from 'GlobalStyle';
 import {
   fetchCurrentUser,
@@ -36,6 +36,7 @@ export const App = () => {
         <>
           <GlobalStyle />
           <AppBar />
+          {isLoggedIn ? <BackgroundHome /> : <BackgroundAuth />}
           <Suspense fallback={<h2>loading...</h2>}>
             <Routes>
               <Route

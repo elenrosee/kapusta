@@ -1,3 +1,4 @@
+import { Breakpoints, MQ } from 'common';
 import styled from 'styled-components';
 
 export const Wraper = styled.div`
@@ -10,6 +11,13 @@ export const Wraper = styled.div`
   background: var(--bg-text-color);
   box-shadow: 5px 10px 20px rgba(170, 178, 197, 0.4);
   border-radius: 20px;
+
+  margin-bottom: 40px;
+
+  ${MQ(Breakpoints.md)} {
+    width: 100%;
+    margin-bottom: 30px;
+  }
 
   div {
     display: flex;

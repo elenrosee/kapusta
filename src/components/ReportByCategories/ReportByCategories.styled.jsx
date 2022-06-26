@@ -5,6 +5,7 @@ export const CategoryList = styled.ul`
   flex-wrap: wrap;
   justify-content: space-around;
   margin: -10px 0 -10px 0;
+  width: 280px;
 `;
 
 export const Category = styled.li`

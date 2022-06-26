@@ -7,6 +7,7 @@ export const Container = styled.div`
   max-width: ${Breakpoints.lg}px;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 56px;
   padding-left: 19px;
   padding-right: 19px;
 

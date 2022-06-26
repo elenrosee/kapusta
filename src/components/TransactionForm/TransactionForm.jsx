@@ -90,7 +90,7 @@ export const TransactionForm = ({ openTrForm }) => {
           value={description}
           onChange={handleInputChange}
           placeholder={'Описание товара'}
-          maxLength="40"
+          maxLength="20"
           autoComplete="off"
         />
         <CategoryWraper>

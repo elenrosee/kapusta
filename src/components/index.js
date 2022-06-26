@@ -1,5 +1,5 @@
+export { BackgroundAuth, BackgroundHome } from './Background';
 export { TypeSwitcher } from './TypeSwitcher/TypeSwitcher';
-
 export { ReportByCategories } from './ReportByCategories';
 export { Chart } from './Chart';
 export { MonthPicker } from './MonthPicker';

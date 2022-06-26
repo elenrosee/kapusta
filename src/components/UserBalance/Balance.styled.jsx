@@ -2,7 +2,7 @@ import { Breakpoints, Button, MQ } from 'common';
 import styled from 'styled-components';
 
 export const BalanceForm = styled.div`
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 
   display: flex;
   flex-direction: column;
