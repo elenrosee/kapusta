@@ -18,7 +18,7 @@ export const Cabbages = ({ typeView }) => {
   };
 
   return (
-    <Wraper>
+    <Wraper typeView={typeView}>
       <CabbagesWraper>{Cabbages()}</CabbagesWraper>
       <OneCabbage>
         <SvgCabbage />

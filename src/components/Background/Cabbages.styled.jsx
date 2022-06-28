@@ -4,7 +4,11 @@ export const Wraper = styled.div`
   display: flex;
   flex-direction: column;
 
-  // transform: rotate(180deg);
+  position: ${({ typeView }) => (typeView === 'HomePage' ? 'fixed' : '')};
+  bottom: ${({ typeView }) => (typeView === 'HomePage' ? '0' : '')};
+
+  transform: ${({ typeView }) =>
+    typeView === 'HomePage' ? 'rotate(180deg)' : 'rotate(0deg)'};
 `;
 
 export const CabbagesWraper = styled.div`

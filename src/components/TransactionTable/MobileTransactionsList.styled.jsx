@@ -8,8 +8,6 @@ export const TransactionsList = styled.ul`
   flex-grow: 3;
   padding-top: 10px;
   padding-bottom: 10px;
-  background-color: white;
-
   overflow: scroll;
 `;
 

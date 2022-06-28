@@ -1,4 +1,4 @@
-export { BackgroundAuth, BackgroundHome } from './Background';
+export { Background } from './Background';
 export { TypeSwitcher } from './TypeSwitcher/TypeSwitcher';
 export { ReportByCategories } from './ReportByCategories';
 export { Chart } from './Chart';

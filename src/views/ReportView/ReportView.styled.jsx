@@ -15,7 +15,6 @@ export const ReportViewContainer = styled(Container)`
   }
 
   ${MQ(Breakpoints.lg)} {
-    padding-top: 40px;
     padding-bottom: 75px;
   }
 `;

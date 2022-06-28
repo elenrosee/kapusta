@@ -7,6 +7,7 @@ export const AppBarWrapper = styled.div`
   align-items: center;
 
   width: 100%;
+  height: 56px;
   background-color: var(--bg-text-color);
   padding: 12px 19px;
   position: fixed;
@@ -29,7 +30,6 @@ export const UserName = styled.button`
   color: var(--text-color-3);
 
   ${MQ(Breakpoints.md)} {
-    height: 36px;
     padding-right: 20px;
     border-right: 2px solid var(--color-placeholder);
   }

@@ -2,7 +2,7 @@ import { lazy, Suspense, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { AppBar, BackgroundAuth, BackgroundHome } from 'components';
+import { AppBar, Background } from 'components';
 import { GlobalStyle } from 'GlobalStyle';
 import {
   fetchCurrentUser,
@@ -36,14 +36,25 @@ export const App = () => {
         <>
           <GlobalStyle />
           <AppBar />
-          {isLoggedIn ? <BackgroundHome /> : <BackgroundAuth />}
+          {isLoggedIn ? (
+            <Background pageType={'UserPage'} />
+          ) : (
+            <Background pageType={'AuthPage'} />
+          )}
           <Suspense fallback={<h2>loading...</h2>}>
             <Routes>
               <Route
                 path="/"
                 exact
                 element={
-                  isLoggedIn ? <Navigate to="/transactions" /> : <AuthView />
+                  isLoggedIn ? (
+                    <Navigate to="/transactions" />
+                  ) : (
+                    <>
+                      <Background pageType={'AuthPage'} />
+                      <AuthView />
+                    </>
+                  )
                 }
               />
               <Route
@@ -54,7 +65,10 @@ export const App = () => {
                     isMobile ? (
                       <MobileHomeView />
                     ) : (
-                      <HomeView />
+                      <>
+                        <Background pageType={'HomePage'} />
+                        <HomeView />
+                      </>
                     )
                   ) : (
                     <Navigate to="/" />
@@ -64,7 +78,16 @@ export const App = () => {
               <Route
                 path="/reports"
                 exact
-                element={isLoggedIn ? <ReportView /> : <Navigate to="/" />}
+                element={
+                  isLoggedIn ? (
+                    <>
+                      <Background pageType={'ReportsPage'} />
+                      <ReportView />
+                    </>
+                  ) : (
+                    <Navigate to="/" />
+                  )
+                }
               />
             </Routes>
           </Suspense>
