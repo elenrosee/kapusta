@@ -1,4 +1,5 @@
 import { Breakpoints, MQ } from 'common/Breakpoints';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const AppBarWrapper = styled.div`
@@ -17,6 +18,10 @@ export const AppBarWrapper = styled.div`
   ${MQ(Breakpoints.md)} {
     padding: 12px 26px;
   }
+`;
+
+export const LogoNavLink = styled(NavLink)`
+  display: inline-block;
 `;
 
 export const UserMenu = styled.div`

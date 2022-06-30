@@ -3,10 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getIsLoggedIn, getUserMail, logOut } from 'redux/user';
 import { useMediaQuery } from 'react-responsive';
 
-import { Logo } from 'components/Logo';
-
 import {
   AppBarWrapper,
+  LogoNavLink,
   LogOutButton,
   LogOutIcon,
   UserMenu,
@@ -14,6 +13,7 @@ import {
 } from './AppBar.styled';
 import logout from 'images/logout.svg';
 import { Breakpoints, Modal } from 'common';
+import { SvgLogo } from 'iconComponents';
 
 export const AppBar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,7 +26,9 @@ export const AppBar = () => {
 
   return (
     <AppBarWrapper>
-      <Logo />
+      <LogoNavLink to="/transactions">
+        <SvgLogo size="size4" />
+      </LogoNavLink>
       {isLoggedIn && (
         <UserMenu>
           <UserName>{userMail}</UserName>

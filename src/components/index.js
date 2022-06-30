@@ -9,7 +9,6 @@ export { TransactionForm } from './TransactionForm';
 export { TypeButtons } from './TypeButtons';
 export { MobileTypeButtons } from './MobileTypeButtons';
 export { Calendar } from './Calendar';
-export { Logo } from './Logo';
 export { Summary } from './Summary';
 export { Transactions } from './Transactions';
 export { Balance } from './UserBalance';

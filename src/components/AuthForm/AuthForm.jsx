@@ -1,6 +1,15 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { logIn, register } from 'redux/user/userOperations.js';
+import {
+  AuthButton,
+  AuthInput,
+  AuthLabel,
+  InputForm,
+  LebelText,
+  Text,
+  Wrapper,
+} from './AuthForm.styled';
 
 export const AuthForm = () => {
   const dispatch = useDispatch();
@@ -30,34 +39,42 @@ export const AuthForm = () => {
   };
 
   return (
-    <div>
-      <h5>Auth form</h5>
-      <form autoComplete="off">
-        <label>
-          Почта
-          <input
+    <Wrapper>
+      <InputForm autoComplete="off">
+        <Text>
+          Вы можете зайти с помощью e-mail и пароля, предварительно
+          зарегистрировавшись:
+        </Text>
+        <AuthLabel>
+          <LebelText>Электронная почта:</LebelText>
+          <AuthInput
             type="email"
             name="email"
             value={email}
             onChange={handleChange}
+            placeholder="your@email.com"
           />
-        </label>
-        <label>
-          Пароль
-          <input
+        </AuthLabel>
+        <AuthLabel>
+          <LebelText>Пароль:</LebelText>
+
+          <AuthInput
             type="password"
             name="password"
             value={password}
             onChange={handleChange}
+            placeholder="Пароль"
           />
-        </label>
-        <button onClick={handleSubmit} name="login">
-          Войти
-        </button>
-        <button onClick={handleSubmit} name="register">
-          Регистрация
-        </button>
-      </form>
-    </div>
+        </AuthLabel>
+        <div>
+          <AuthButton onClick={handleSubmit} name="login" className="active">
+            Войти
+          </AuthButton>
+          <AuthButton onClick={handleSubmit} name="register">
+            Регистрация
+          </AuthButton>
+        </div>
+      </InputForm>
+    </Wrapper>
   );
 };
