@@ -35,16 +35,7 @@ const userSlice = createSlice({
       state.isLoggedIn = false;
     },
     [fetchCurrentUser.pending]: state => {
-      //   ???
-      // const params = new URL(document.location).searchParams;
-      // const acces_token = params.get('acces_token');
-
       state.isFetchingCurrent = true;
-
-      //   ???
-      // if (acces_token) {
-      //   state.token = acces_token;
-      // }
     },
     [fetchCurrentUser.fulfilled]: (state, action) => {
       state.user = action.payload.data;

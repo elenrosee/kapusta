@@ -5,7 +5,9 @@ export const fetchUserTransactions = createAsyncThunk(
   'transactions/fetchUserTransactions',
   async ({ year, month, day }, thunkAPI) => {
     try {
-      const { data } = await axios.get(`/transactions/${year}/${month}/${day}`);
+      const { data } = await axios.get(
+        `/transactions/fromDay/${year}/${month}/${day}`
+      );
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

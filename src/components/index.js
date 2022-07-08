@@ -1,3 +1,4 @@
+export { ModalWelcome } from './ModalWelcome';
 export { Background } from './Background';
 export { TypeSwitcher } from './TypeSwitcher/TypeSwitcher';
 export { ReportByCategories } from './ReportByCategories';

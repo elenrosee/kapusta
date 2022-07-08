@@ -1,0 +1,1 @@
+export { ModalWelcome } from './ModalWelcome';

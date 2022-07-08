@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
+import { ModalWelcome } from 'components/ModalWelcome';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -6,18 +8,20 @@ import {
   fetchUserTransactions,
   getDate,
 } from 'redux/transactions';
-
 import { getUserBalance, updateUserBalance } from 'redux/user';
 import {
   BalanceButton,
   BalanceForm,
   BalanceInput,
   BalanceText,
+  BalanceWrapper,
 } from './Balance.styled';
 
 export const Balance = ({ typeView = 'home' }) => {
   const [value, setValue] = useState('');
   const [defaultValue, setDefaultValue] = useState('');
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
   const userBalance = useSelector(getUserBalance);
   const date = useSelector(getDate);
   const dispatch = useDispatch();
@@ -28,6 +32,8 @@ export const Balance = ({ typeView = 'home' }) => {
         ? userBalance.toLocaleString().concat(' UAH')
         : '00.00 UAH'
     );
+
+    userBalance ?? setIsOpenModal(true);
   }, [userBalance]);
 
   const handleInputChange = event => {
@@ -35,7 +41,7 @@ export const Balance = ({ typeView = 'home' }) => {
   };
 
   return (
-    <>
+    <BalanceWrapper>
       <BalanceForm>
         <BalanceText>Баланс:</BalanceText>
         <div>
@@ -65,6 +71,7 @@ export const Balance = ({ typeView = 'home' }) => {
           )}
         </div>
       </BalanceForm>
-    </>
+      {isOpenModal && <ModalWelcome setIsOpenModal={setIsOpenModal} />}
+    </BalanceWrapper>
   );
 };

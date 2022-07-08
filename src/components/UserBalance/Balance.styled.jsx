@@ -1,10 +1,15 @@
 import { Breakpoints, Button, MQ } from 'common';
 import styled from 'styled-components';
 
+export const BalanceWrapper = styled.div`
+  position: relative;
+`;
+
 export const BalanceForm = styled.div`
   margin-bottom: 30px;
 
   display: flex;
+
   flex-direction: column;
   align-items: center;
 
