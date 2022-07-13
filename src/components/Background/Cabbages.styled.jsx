@@ -4,7 +4,7 @@ export const Wraper = styled.div`
   display: flex;
   flex-direction: column;
 
-  position: ${({ typeView }) => (typeView === 'HomePage' ? 'fixed' : '')};
+  position: ${({ typeView }) => (typeView === 'HomePage' ? 'absolute' : '')};
   bottom: ${({ typeView }) => (typeView === 'HomePage' ? '0' : '')};
 
   transform: ${({ typeView }) =>

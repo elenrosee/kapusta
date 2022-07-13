@@ -1,3 +1,4 @@
+import { SvgTrashBin } from 'iconComponents';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -14,9 +15,9 @@ import {
   Date,
   DateAndCategory,
   DeleteTransactionBtn,
+  DescAndSum,
   Description,
   Sum,
-  SumAndBtn,
   Text,
   Transaction,
   TransactionsList,
@@ -51,25 +52,28 @@ export const MobileTransactionsList = () => {
           return (
             <Transaction key={id}>
               <Text>
-                <Description>{description}</Description>
+                <DescAndSum>
+                  <Description>{description}</Description>{' '}
+                  <Sum type={type}>
+                    {type === 'costs' ? `- ${sum} грн.` : `${sum} грн.`}
+                  </Sum>
+                </DescAndSum>
                 <DateAndCategory>
                   <Date>{`${day}.${month}.${year}`}</Date>
                   <span>{category}</span>
                 </DateAndCategory>
               </Text>
-              <SumAndBtn>
-                <Sum type={type}>
-                  {type === 'costs' ? `- ${sum} грн.` : `${sum} грн.`}
-                </Sum>
-                <DeleteTransactionBtn
-                  onClick={async () => {
-                    await dispatch(removeTransaction(id));
-                    dispatch(fetchUserBalance());
-                    dispatch(fetchSummary());
-                  }}
-                  type="submit"
-                />
-              </SumAndBtn>
+
+              <DeleteTransactionBtn
+                onClick={async () => {
+                  await dispatch(removeTransaction(id));
+                  dispatch(fetchUserBalance());
+                  dispatch(fetchSummary());
+                }}
+                type="submit"
+              >
+                <SvgTrashBin />
+              </DeleteTransactionBtn>
             </Transaction>
           );
         }

@@ -39,7 +39,7 @@ export const ReportByCategories = ({ setCategory }) => {
             name={arr[i].category}
             type="button"
           >
-            <CategoryText>{arr[i].sum}</CategoryText>
+            <CategoryText>{arr[i].sum} грн.</CategoryText>
             <SvgWrap focused={selectedCategory === arr[i].category}>
               <Svg
                 fill={

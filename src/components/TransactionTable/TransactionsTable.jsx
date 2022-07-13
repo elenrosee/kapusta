@@ -20,6 +20,7 @@ import {
   TrTableHeadRow,
   TrTableRow,
 } from './TransactionTable.styled';
+import { SvgTrashBin } from 'iconComponents';
 
 export const TransactionTable = () => {
   const dispatch = useDispatch();
@@ -69,7 +70,9 @@ export const TransactionTable = () => {
                   dispatch(fetchSummary());
                 }}
                 type="submit"
-              />
+              >
+                <SvgTrashBin />
+              </DeleteTransactionBtn>
             )}
           </th>
         </TrTableRow>

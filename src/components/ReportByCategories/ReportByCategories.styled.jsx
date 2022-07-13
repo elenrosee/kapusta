@@ -1,34 +1,47 @@
 import styled from 'styled-components';
+import { Breakpoints, MQ } from 'common';
 
 export const CategoryList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin: -10px 0 -10px 0;
   width: 280px;
+
+  ${MQ(Breakpoints.md)} {
+    width: 100%;
+  }
 `;
 
 export const Category = styled.li`
   display: flex;
-  flex-basis: calc((100% - 30px) / 3);
   justify-content: center;
-  align-items: center;
+  flex-basis: calc((100% - 30px) / 3);
 
+  height: 122px;
   margin: 10px 0 10px 0;
+
+  ${MQ(Breakpoints.md)} {
+    flex-basis: calc((100% - 30px) / 6);
+  }
 `;
 
 export const CategoryBtn = styled.button`
   display: flex;
   flex-direction: column;
-  justify-items: center;
+  justify-content: baseline;
   align-items: center;
-
   background-color: inherit;
   border: none;
 `;
 
 export const SvgWrap = styled.div`
+  display: flex;
+  align-items: center;
   position: relative;
+  width: 60px;
+  height: 60px;
+
+  margin: 10px 0;
 
   &::before {
     content: '';
@@ -39,16 +52,21 @@ export const SvgWrap = styled.div`
       focused ? 'var(--accent-color-2)' : 'var(--bg-color)'};
 
     position: absolute;
-    bottom: 5px;
-    z-index: -1;
+    bottom: 0px;
+    z-index: 1;
   }
 
   svg {
+    position: relative;
+    z-index: 2;
     margin: 5px 0 5px 0;
   }
 `;
 
 export const CategoryText = styled.p`
   color: var(--text-color-3);
-  text-transform: uppercase;
+
+  :last-child {
+    text-transform: uppercase;
+  }
 `;

@@ -74,10 +74,20 @@ export const Chart = ({ category }) => {
   return (
     <Container>
       {isMobile && (
-        <Bar options={chartOptions.mobile} data={data} width={280} />
+        <Bar
+          options={chartOptions.mobile}
+          data={data}
+          width={280}
+          height={350}
+        />
       )}
       {isTablet && (
-        <Bar options={chartOptions.mobile} data={data} width={605} />
+        <Bar
+          options={chartOptions.mobile}
+          data={data}
+          width={605}
+          height={350}
+        />
       )}
     </Container>
   );

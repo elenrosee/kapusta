@@ -35,6 +35,10 @@ export const Text = styled.p`
   }
 `;
 
+export const ErrorText = styled.span`
+  color: red;
+`;
+
 export const AuthLabel = styled.label`
   display: flex;
   flex-direction: column;

@@ -13,7 +13,7 @@ export const AppBarWrapper = styled.div`
   padding: 12px 19px;
   position: fixed;
   top: 0;
-  z-index: 1;
+  z-index: 9;
 
   ${MQ(Breakpoints.md)} {
     padding: 12px 26px;

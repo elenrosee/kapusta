@@ -29,6 +29,11 @@ export const AuthViewContainer = styled(Container)`
 export const PageLogo = styled.div`
   margin-right: auto;
   margin-bottom: 50px;
+  margin-left: 40px;
+
+  ${MQ(Breakpoints.md)} {
+    margin-left: 0px;
+  }
 
   ${MQ(Breakpoints.lg)} {
     margin-right: 127px;

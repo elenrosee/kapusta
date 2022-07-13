@@ -16,6 +16,7 @@ export const Wraper = styled.div`
 
   ${MQ(Breakpoints.md)} {
     width: 100%;
+    height: 50px;
     margin-bottom: 30px;
   }
 
@@ -31,6 +32,11 @@ export const Wraper = styled.div`
     :first-child {
       border-right: 1px solid #e0e5eb;
     }
+
+    ${MQ(Breakpoints.md)} {
+      flex-direction: row;
+      align-items: center;
+    }
   }
 `;
 
@@ -40,6 +46,11 @@ export const TypeText = styled.p`
   color: var(--text-color-3);
 
   margin-bottom: 5px;
+
+  ${MQ(Breakpoints.md)} {
+    margin-bottom: 0px;
+    margin-right: 15px;
+  }
 `;
 
 export const Sum = styled.p`

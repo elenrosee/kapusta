@@ -53,6 +53,7 @@ export const Balance = ({ typeView = 'home' }) => {
             disabled={typeView === 'report' ? true : false}
             maxLength="20"
             autoComplete="off"
+            typeView={typeView}
           />
           {typeView !== 'report' && (
             <BalanceButton

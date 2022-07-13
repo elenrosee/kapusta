@@ -1,6 +1,8 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { AppBar, Background } from 'components';
 import { GlobalStyle } from 'GlobalStyle';
@@ -29,18 +31,13 @@ export const App = () => {
   }, [dispatch]);
 
   return (
-    <>
+    <div>
       {isFetchingCurrentUser ? (
         <h2>loading...</h2>
       ) : (
         <>
           <GlobalStyle />
           <AppBar />
-          {isLoggedIn ? (
-            <Background pageType={'UserPage'} />
-          ) : (
-            <Background pageType={'AuthPage'} />
-          )}
           <Suspense fallback={<h2>loading...</h2>}>
             <Routes>
               <Route
@@ -63,7 +60,10 @@ export const App = () => {
                 element={
                   isLoggedIn ? (
                     isMobile ? (
-                      <MobileHomeView />
+                      <>
+                        <Background pageType={'MobileHome'} />
+                        <MobileHomeView />
+                      </>
                     ) : (
                       <>
                         <Background pageType={'HomePage'} />
@@ -93,6 +93,7 @@ export const App = () => {
           </Suspense>
         </>
       )}
-    </>
+      <ToastContainer />
+    </div>
   );
 };

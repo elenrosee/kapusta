@@ -12,10 +12,20 @@ import {
   TypeSwitcher,
 } from 'components';
 
-import { MonthAndBalance, ReportViewContainer } from './ReportView.styled';
+import {
+  MonthAndBalance,
+  ReportViewContainer,
+  CategoriesWrapper,
+  Text,
+} from './ReportView.styled';
+import { useSelector } from 'react-redux';
+import { getReportsData, getType } from 'redux/transactions';
 
 export default function ReportView() {
   const [category, setCategory] = useState('all');
+
+  const reportData = useSelector(getReportsData);
+  const type = useSelector(getType);
 
   const isMobile = useMediaQuery({ maxWidth: Breakpoints.md - 1 });
 
@@ -29,9 +39,18 @@ export default function ReportView() {
         {!isMobile && <MonthPicker />}
       </MonthAndBalance>
       <MonthCostsIncome />
-      <TypeSwitcher setCategory={setCategory} />
-      <ReportByCategories setCategory={setCategory} />
-      <Chart category={category} />
+      <CategoriesWrapper>
+        <TypeSwitcher setCategory={setCategory} />
+        {reportData[type].length > 0 ? (
+          <ReportByCategories setCategory={setCategory} />
+        ) : (
+          <Text>
+            В этом месяце {type === 'costs' ? 'расходов' : 'доходов'} не было
+            :&#40;
+          </Text>
+        )}
+      </CategoriesWrapper>
+      {reportData[type].length > 0 && <Chart category={category} />}
     </ReportViewContainer>
   );
 }

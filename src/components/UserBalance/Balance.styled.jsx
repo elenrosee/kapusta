@@ -37,7 +37,7 @@ export const BalanceText = styled.p`
 `;
 
 export const BalanceInput = styled.input`
-  width: 125px;
+  width: ${({ typeView }) => (typeView !== 'report' ? '125px' : '183px')};
   height: 44px;
   font-weight: 700;
   text-transform: uppercase;
@@ -45,12 +45,14 @@ export const BalanceInput = styled.input`
 
   color: var(--text-color);
   border: 2px solid var(--bg-text-color);
-  border-right: none;
-  border-radius: 22px 0 0 22px;
+  border-right: ${({ typeView }) => typeView !== 'report' && 'none'};
+  border-radius: ${({ typeView }) =>
+    typeView !== 'report' ? '22px 0 0 22px' : '22px'};
   text-align: center;
   outline: none;
 
   ${MQ(Breakpoints.md)} {
+    width: 125px;
     border-right: 2px solid var(--bg-text-color);
     border-radius: 16px;
 

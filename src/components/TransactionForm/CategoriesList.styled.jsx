@@ -12,6 +12,12 @@ export const AllCategories = styled.ul`
   li {
     border-bottom: 2px solid var(--bg-text-color);
   }
+
+  ${MQ(Breakpoints.md)} {
+    left: -2px;
+    border-bottom: none;
+    border: 2px solid var(--bg-color);
+  }
 `;
 
 export const CategoryBtn = styled.button`
@@ -27,11 +33,11 @@ export const CategoryBtn = styled.button`
 
   ${MQ(Breakpoints.md)} {
     background-color: var(--bg-text-color);
-    border: 2px solid var(--bg-color);
-    width: 167px;
+
+    width: 169px;
   }
 
   ${MQ(Breakpoints.lg)} {
-    width: 184px;
+    width: 186px;
   }
 `;

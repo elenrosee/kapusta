@@ -32,3 +32,25 @@ export const MonthAndBalance = styled.div`
     margin-bottom: 30px;
   }
 `;
+
+export const CategoriesWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  ${MQ(Breakpoints.md)} {
+    width: 100%;
+    background: var(--bg-text-color);
+    box-shadow: 5px 10px 20px rgba(170, 178, 197, 0.4);
+    border-radius: 20px;
+    padding: 20px;
+  }
+`;
+
+export const Text = styled.p`
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--text-color-3);
+
+  padding: 50px 0;
+`;
